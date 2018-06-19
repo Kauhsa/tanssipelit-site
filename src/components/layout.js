@@ -1,6 +1,13 @@
 import React from "react";
 import Helmet from "react-helmet";
+import styled from "styled-components";
 import { StaticQuery } from "gatsby";
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
+`;
 
 export default ({ children }) => (
   <StaticQuery
@@ -19,7 +26,7 @@ export default ({ children }) => (
           titleTemplate={`%s | ${data.site.siteMetadata.title}`}
           defaultTitle={data.site.siteMetadata.title}
         />
-        <div>{children}</div>
+        <Container>{children}</Container>
       </>
     )}
   />
