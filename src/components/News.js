@@ -17,7 +17,7 @@ const NewsItem = ({ summary, title, slug, mainImageFluid }) => (
       <Link to={newsLink(slug)}>
         <h4>{title}</h4>
       </Link>
-      <p dangerouslySetInnerHTML={{ __html: summary }} />
+      <div dangerouslySetInnerHTML={{ __html: summary }} />
       <Link to={newsLink(slug)} className="primary">
         Lue lisää
       </Link>
