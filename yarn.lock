@@ -4633,6 +4633,13 @@ gatsby-cli@^2.0.0-beta.2:
     yargs "^11.1.0"
     yurnalist "^0.2.1"
 
+gatsby-image@^2.0.0-beta.3:
+  version "2.0.0-beta.3"
+  resolved "https://registry.npmjs.org/gatsby-image/-/gatsby-image-2.0.0-beta.3.tgz#8b8220144f1da083ae2bedf3a1fd26268ac42d95"
+  dependencies:
+    "@babel/runtime" "7.0.0-beta.51"
+    prop-types "^15.6.1"
+
 gatsby-link@^2.0.0-beta.3:
   version "2.0.0-beta.3"
   resolved "https://registry.npmjs.org/gatsby-link/-/gatsby-link-2.0.0-beta.3.tgz#2be4a3ec734bb83d209aaaad3f66d5090bc3e4ce"
@@ -4751,6 +4758,15 @@ gatsby-transformer-remark@^2.1.1-beta.2:
     unist-util-remove-position "^1.1.2"
     unist-util-select "^1.5.0"
     unist-util-visit "^1.3.0"
+
+gatsby-transformer-sharp@^2.1.1-beta.3:
+  version "2.1.1-beta.3"
+  resolved "https://registry.npmjs.org/gatsby-transformer-sharp/-/gatsby-transformer-sharp-2.1.1-beta.3.tgz#63e4d5a3997f5fe4f38bdba3a9e5a6d276f606c6"
+  dependencies:
+    "@babel/runtime" "7.0.0-beta.51"
+    bluebird "^3.5.0"
+    fs-extra "^4.0.2"
+    probe-image-size "^4.0.0"
 
 gatsby@^2.0.0-beta.2:
   version "2.0.0-beta.12"

@@ -1,15 +1,16 @@
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import { newsLink } from "../links";
+import Img from "gatsby-image";
 
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
 
-const NewsItem = ({ summary, title, slug }) => (
+const NewsItem = ({ summary, title, slug, mainImageFluid }) => (
   <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <Link to={newsLink(slug)}>
       <div className="image-wrapper">
-        <img alt="" src="images/animu1.jpg" />
+        <Img fluid={mainImageFluid} />
       </div>
     </Link>
     <div className="bordered-content">
@@ -40,9 +41,8 @@ const News = () => (
                 }
               }
               mainImage {
-                title
-                file {
-                  url
+                fluid(maxWidth: 800) {
+                  ...GatsbyContentfulFluid
                 }
               }
             }
@@ -60,6 +60,7 @@ const News = () => (
                 summary={node.content.childMarkdownRemark.html}
                 title={node.title}
                 slug={node.slug}
+                mainImageFluid={node.mainImage.fluid}
               />
             ))}
           </div>
