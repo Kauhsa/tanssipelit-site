@@ -35,7 +35,7 @@ const News = () => (
               id
               title
               slug
-              content {
+              summary {
                 childMarkdownRemark {
                   html
                 }
@@ -57,7 +57,7 @@ const News = () => (
             {data.allContentfulNews.edges.map(({ node }, i) => (
               <NewsItem
                 key={i}
-                summary={node.content.childMarkdownRemark.html}
+                summary={node.summary.childMarkdownRemark.html}
                 title={node.title}
                 slug={node.slug}
                 mainImageFluid={node.mainImage.fluid}

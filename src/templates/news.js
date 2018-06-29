@@ -1,8 +1,15 @@
 import { graphql } from "gatsby";
+import styled from "styled-components";
 import React from "react";
 import Helmet from "react-helmet";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
+
+const Ingress = styled.div`
+  & > * {
+    font-weight: bold;
+  }
+`;
 
 export default function Template({ data: { contentfulNews } }) {
   return (
@@ -10,6 +17,11 @@ export default function Template({ data: { contentfulNews } }) {
       <Content>
         <Helmet title={contentfulNews.title} />
         <h1>{contentfulNews.title}</h1>
+        <Ingress
+          dangerouslySetInnerHTML={{
+            __html: contentfulNews.summary.childMarkdownRemark.html
+          }}
+        />
         <div
           dangerouslySetInnerHTML={{
             __html: contentfulNews.content.childMarkdownRemark.html
@@ -27,6 +39,11 @@ export const pageQuery = graphql`
       title
       slug
       content {
+        childMarkdownRemark {
+          html
+        }
+      }
+      summary {
         childMarkdownRemark {
           html
         }
