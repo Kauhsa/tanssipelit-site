@@ -6,14 +6,22 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
 
   const { errors, data } = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 1000
-      ) {
+      allContentfulNews(limit: 1000) {
         edges {
           node {
-            frontmatter {
-              slug
+            id
+            title
+            slug
+            content {
+              childMarkdownRemark {
+                html
+              }
+            }
+            mainImage {
+              title
+              file {
+                url
+              }
             }
           }
         }
@@ -25,12 +33,12 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     throw errors;
   }
 
-  data.allMarkdownRemark.edges.forEach(({ node }) => {
+  data.allContentfulNews.edges.forEach(({ node }) => {
     createPage({
-      path: newsLink(node.frontmatter.slug),
+      path: newsLink(node.slug),
       component: newsTemplate,
       context: {
-        slug: node.frontmatter.slug
+        id: node.id
       }
     });
   });

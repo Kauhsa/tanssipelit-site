@@ -28,16 +28,22 @@ const News = () => (
   <StaticQuery
     query={graphql`
       query LatestNewsQuery {
-        pages: allMarkdownRemark(
-          sort: { order: DESC, fields: [frontmatter___date] }
-          limit: 3
-        ) {
+        allContentfulNews(limit: 3, sort: { fields: createdAt, order: DESC }) {
           edges {
             node {
-              html
-              frontmatter {
-                slug
+              id
+              title
+              slug
+              content {
+                childMarkdownRemark {
+                  html
+                }
+              }
+              mainImage {
                 title
+                file {
+                  url
+                }
               }
             }
           }
@@ -48,12 +54,12 @@ const News = () => (
       <section className="content grey">
         <div className="container center">
           <div className="row" id="news">
-            {data.pages.edges.map(({ node }, i) => (
+            {data.allContentfulNews.edges.map(({ node }, i) => (
               <NewsItem
                 key={i}
-                summary={node.html}
-                title={node.frontmatter.title}
-                slug={node.frontmatter.slug}
+                summary={node.content.childMarkdownRemark.html}
+                title={node.title}
+                slug={node.slug}
               />
             ))}
           </div>

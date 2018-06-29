@@ -4,27 +4,38 @@ import Helmet from "react-helmet";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
 
-export default function Template({ data }) {
-  const { markdownRemark: post } = data;
+export default function Template({ data: { contentfulNews } }) {
   return (
     <Layout>
       <Content>
-        <Helmet title={post.frontmatter.title} />
-        <h1>{post.frontmatter.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <Helmet title={contentfulNews.title} />
+        <h1>{contentfulNews.title}</h1>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: contentfulNews.content.childMarkdownRemark.html
+          }}
+        />
       </Content>
     </Layout>
   );
 }
 
 export const pageQuery = graphql`
-  query NewsPostBySlug($slug: String!) {
-    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        date(formatString: "MMMM DD, YYYY")
-        slug
+  query NewsPostById($id: String!) {
+    contentfulNews(id: { eq: $id }) {
+      id
+      title
+      slug
+      content {
+        childMarkdownRemark {
+          html
+        }
+      }
+      mainImage {
         title
+        file {
+          url
+        }
       }
     }
   }
