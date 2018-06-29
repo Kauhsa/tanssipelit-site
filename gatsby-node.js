@@ -1,9 +1,10 @@
 const path = require("path");
+const { newsLink } = require("./src/links");
 
-exports.createPages = ({ actions: { createPage }, graphql }) => {
-  const blogPostTemplate = path.resolve(`src/templates/page.js`);
+exports.createPages = async ({ actions: { createPage }, graphql }) => {
+  const newsTemplate = path.resolve(`src/templates/news.js`);
 
-  return graphql(`
+  const { errors, data } = await graphql(`
     {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
@@ -12,23 +13,25 @@ exports.createPages = ({ actions: { createPage }, graphql }) => {
         edges {
           node {
             frontmatter {
-              path
+              slug
             }
           }
         }
       }
     }
-  `).then(result => {
-    if (result.errors) {
-      return Promise.reject(result.errors);
-    }
+  `);
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      createPage({
-        path: node.frontmatter.path,
-        component: blogPostTemplate,
-        context: {} // additional data can be passed via context
-      });
+  if (errors) {
+    throw errors;
+  }
+
+  data.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: newsLink(node.frontmatter.slug),
+      component: newsTemplate,
+      context: {
+        slug: node.frontmatter.slug
+      }
     });
   });
 };

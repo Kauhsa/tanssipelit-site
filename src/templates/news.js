@@ -1,7 +1,7 @@
 import { graphql } from "gatsby";
 import React from "react";
 import Helmet from "react-helmet";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 export default function Template({ data }) {
   const { markdownRemark: post } = data;
@@ -15,12 +15,12 @@ export default function Template({ data }) {
 }
 
 export const pageQuery = graphql`
-  query BlogPostByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query NewsPostBySlug($slug: String!) {
+    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
-        path
+        slug
         title
       }
     }

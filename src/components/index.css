@@ -67,7 +67,7 @@ h5 { font-size: 21px; }
 h6 { font-size: 17px; }
 
 /* Buttons */
-button, button:focus {
+button, button:focus, .primary, .primary:hover, .secondary, .thirdary, .accent {
   color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 12px 30px 12px 30px;
