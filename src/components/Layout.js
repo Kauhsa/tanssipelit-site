@@ -1,9 +1,10 @@
-import { graphql, StaticQuery } from "gatsby";
+import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import Helmet from "react-helmet";
 import logo from "../images/stp_logo.png";
 import FaBars from "react-icons/lib/fa/bars";
 import styled from "styled-components";
+import { articleLink } from "../links";
 
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
@@ -11,6 +12,7 @@ import "./index.css";
 const MenuIcon = styled.a`
   display: none;
   float: right;
+  cursor: pointer;
 
   @media only screen and (max-width: 48em) {
     display: block;
@@ -39,12 +41,14 @@ class Header extends React.PureComponent {
   };
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <header>
-        <a href="#" id="logo">
+        <Link id="logo" to="/">
           <img src={logo} alt="logo" id="logo-img" />
-        </a>
-        <MenuIcon href="#" onClick={this.handleToggleMenu}>
+        </Link>
+        <MenuIcon onClick={this.handleToggleMenu}>
           <FaBars />
         </MenuIcon>
         <nav
@@ -53,19 +57,18 @@ class Header extends React.PureComponent {
         >
           <ul>
             <li>
-              <a className="active" href="#">
+              <Link activeClassName="active" to="/" exact>
                 Etusivu
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="#">Tanssipelit</a>
-            </li>
-            <li>
-              <a href="#">Yhteisö</a>
-            </li>
-            <li>
-              <a href="#">Yhdistys</a>
-            </li>
+
+            {navigation.map(link => (
+              <li key={link.id}>
+                <Link activeClassName="active" to={articleLink(link.slug)}>
+                  {link.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </header>
@@ -77,9 +80,11 @@ export default ({ children }) => (
   <StaticQuery
     query={graphql`
       query LayoutQuery {
-        site {
-          siteMetadata {
+        contentfulSettings {
+          navigation {
+            id
             title
+            slug
           }
         }
       }
@@ -87,8 +92,8 @@ export default ({ children }) => (
     render={data => (
       <>
         <Helmet
-          titleTemplate={`%s | ${data.site.siteMetadata.title}`}
-          defaultTitle={data.site.siteMetadata.title}
+          titleTemplate={`%s | Tanssipelit.fi`}
+          defaultTitle={"Tanssipelit.fi"}
         >
           <link
             href="http://fonts.googleapis.com/css?family=Lato:400,400italic,600,700"
@@ -96,7 +101,7 @@ export default ({ children }) => (
             type="text/css"
           />
         </Helmet>
-        <Header />
+        <Header navigation={data.contentfulSettings.navigation} />
         {children}
       </>
     )}
