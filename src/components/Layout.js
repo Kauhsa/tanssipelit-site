@@ -96,7 +96,7 @@ export default ({ children }) => (
           defaultTitle={"Tanssipelit.fi"}
         >
           <link
-            href="http://fonts.googleapis.com/css?family=Lato:400,400italic,600,700"
+            href="//fonts.googleapis.com/css?family=Lato:400,400italic,600,700"
             rel="stylesheet"
             type="text/css"
           />
