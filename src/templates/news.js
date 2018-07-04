@@ -13,15 +13,11 @@ const Ingress = styled.div`
   }
 `;
 
-const Post = styled.article`
-  margin-top: 8rem;
-`;
-
 export default function Template({ data: { contentfulNews } }) {
   return (
     <Layout>
       <Content>
-        <Post>
+        <article>
           <Img fluid={contentfulNews.mainImage.fluid} />
           <Helmet title={contentfulNews.title} />
           <h1>{contentfulNews.title}</h1>
@@ -35,7 +31,7 @@ export default function Template({ data: { contentfulNews } }) {
               __html: contentfulNews.content.childMarkdownRemark.html
             }}
           />
-        </Post>
+        </article>
       </Content>
     </Layout>
   );

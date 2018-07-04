@@ -6,8 +6,13 @@ import FaBars from "react-icons/lib/fa/bars";
 import styled from "styled-components";
 import { articleLink } from "../links";
 
+import "css-wipe/reset.css";
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
+
+const Container = styled.div`
+  padding-top: 72px;
+`;
 
 const MenuIcon = styled.a`
   display: none;
@@ -90,20 +95,23 @@ export default ({ children }) => (
       }
     `}
     render={data => (
-      <>
+      <Container>
         <Helmet
           titleTemplate={`%s | Tanssipelit.fi`}
           defaultTitle={"Tanssipelit.fi"}
         >
           <link
-            href="//fonts.googleapis.com/css?family=Lato:400,400italic,600,700"
+            href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,500,500i,700,700i,900,900i"
             rel="stylesheet"
-            type="text/css"
+          />
+          <link
+            href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i"
+            rel="stylesheet"
           />
         </Helmet>
         <Header navigation={data.contentfulSettings.navigation} />
         {children}
-      </>
+      </Container>
     )}
   />
 );

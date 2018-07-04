@@ -2,14 +2,15 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import Layout from "../components/Layout";
-import News from "../components/News";
+import IndexHeader from "../components/IndexHeader";
 import Content from "../components/Content";
+import TextContent from "../components/TextContent";
 
 const Index = ({ data }) => (
   <Layout>
-    <News />
+    <IndexHeader />
     <Content>
-      <div
+      <TextContent
         dangerouslySetInnerHTML={{
           __html:
             data.contentfulSettings.frontPageContent.childMarkdownRemark.html
