@@ -11,12 +11,15 @@ import logo from "../images/stp_logo.png";
 const HeaderContainer = styled(Headroom)`
   header {
     width: 100%;
-    height: 100%;
+    height: 5rem;
     background-color: #3a2a6c;
 
     #logo {
+      height: 100%;
       float: left;
-      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
     }
 
     nav {
@@ -53,7 +56,7 @@ const HeaderContainer = styled(Headroom)`
         float: none;
         display: block;
         position: fixed;
-        top: 72px;
+        top: 5rem;
         width: 100%;
       }
 
@@ -83,17 +86,18 @@ const HeaderContainer = styled(Headroom)`
 const MenuIcon = styled.a`
   display: none;
   float: right;
+  height: 100%;
+  align-items: center;
   cursor: pointer;
+  padding: 0 2rem;
 
   @media only screen and (max-width: 48em) {
-    display: block;
+    display: flex;
   }
 
   svg {
-    margin-top: 20px;
-    margin-right: 20px;
-    height: 2em;
-    width: 2em;
+    height: 2rem;
+    width: 2rem;
     color: white;
   }
 `;
