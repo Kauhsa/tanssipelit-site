@@ -8,6 +8,11 @@ import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
 
 injectGlobal`
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     font-family: 'Karla', sans-serif;
   }

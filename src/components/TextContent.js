@@ -56,6 +56,10 @@ const TextContent = styled.div`
     padding-left: 1rem;
     border-left: 3px solid rgba(0, 0, 0, 0.7);
   }
+
+  pre {
+    white-space: pre-line;
+  }
 `;
 
 export default TextContent;
