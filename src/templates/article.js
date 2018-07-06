@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import FullRow from "../components/FullRow";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
+import TextContent from "../components/TextContent";
 
 export default function Template({ data: { contentfulArticle } }) {
   return (
@@ -14,7 +15,7 @@ export default function Template({ data: { contentfulArticle } }) {
           <Content>
             <Helmet title={contentfulArticle.title} />
             <h1>{contentfulArticle.title}</h1>
-            <div
+            <TextContent
               dangerouslySetInnerHTML={{
                 __html: contentfulArticle.content.childMarkdownRemark.html
               }}

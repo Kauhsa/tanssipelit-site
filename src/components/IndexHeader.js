@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
-import Img from "gatsby-image";
 import { TiCalendar, TiNews } from "react-icons/lib/ti";
 import { times, take, sortBy } from "lodash-es";
 import isAfter from "date-fns/is_after";
@@ -10,75 +9,21 @@ import getTime from "date-fns/get_time";
 
 import { newsLink } from "../links";
 
+import TextImage from "./TextImage";
 import FullRow from "./FullRow";
 import DateTime from "./DateTime";
-
-import "flexboxgrid/css/flexboxgrid.min.css";
-import "./index.css";
-
-const Content = styled(Link)`
-  display: block;
-  position: relative;
-  height: 100%;
-
-  .stretch {
-    height: 100%;
-  }
-`;
-
-const ItemContent = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
-  color: white;
-`;
-
-const Text = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem;
-  color: white !important;
-
-  h2 {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  ${DateTime} {
-    display: block;
-    margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-  }
-`;
 
 const HighlightNewsItem = ({
   node: { summary, title, slug, mainImage, createdAt }
 }) => (
   <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-    <Content to={newsLink(slug)}>
-      <Img
-        fluid={mainImage.fluid}
-        className="stretch"
-        outerWrapperClassName="stretch"
-      />
-      <ItemContent>
-        <Text>
-          <h2>{title}</h2>
-          <DateTime dateTime={createdAt} />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: summary.childMarkdownRemark.html
-            }}
-          />
-        </Text>
-      </ItemContent>
-    </Content>
+    <Link to={newsLink(slug)}>
+      <TextImage fluid={mainImage.fluid}>
+        <h2>{title}</h2>
+        <DateTime dateTime={createdAt} />
+        <p>{summary.childMarkdownRemark.rawMarkdownBody}</p>
+      </TextImage>
+    </Link>
   </div>
 );
 
@@ -194,7 +139,7 @@ class News extends React.Component {
                   createdAt
                   summary {
                     childMarkdownRemark {
-                      html
+                      rawMarkdownBody
                     }
                   }
                   mainImage {

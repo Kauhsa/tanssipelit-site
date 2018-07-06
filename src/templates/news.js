@@ -1,48 +1,53 @@
 import { graphql } from "gatsby";
-import styled from "styled-components";
 import React from "react";
 import Helmet from "react-helmet";
-import Img from "gatsby-image";
+import styled from "styled-components";
 
 import FullRow from "../components/FullRow";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
+import TextImage from "../components/TextImage";
+import DateTime from "../components/DateTime";
+import TextContent from "../components/TextContent";
 
-const Ingress = styled.div`
-  & > * {
-    font-weight: bold;
-  }
+const Summary = styled.div`
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 export default function Template({ data: { contentfulNews } }) {
   return (
-    <Layout>
-      <FullRow gray>
-        <div className="col-xs-12">
-          <Img fluid={contentfulNews.mainImage.fluid} />
-        </div>
-      </FullRow>
-      <FullRow>
-        <div className="col-xs-12">
-          <Content>
-            <article>
-              <Helmet title={contentfulNews.title} />
+    <>
+      <Helmet title={contentfulNews.title} />
+      <Layout>
+        <FullRow gray>
+          <div className="col-xs-12">
+            <TextImage fluid={contentfulNews.mainImage.fluid}>
               <h1>{contentfulNews.title}</h1>
-              <Ingress
+              <DateTime dateTime={contentfulNews.createdAt} />
+            </TextImage>
+          </div>
+        </FullRow>
+        <FullRow>
+          <div className="col-xs-12">
+            <Content>
+              <Summary
                 dangerouslySetInnerHTML={{
-                  __html: contentfulNews.summary.childMarkdownRemark.html
+                  __html:
+                    contentfulNews.summary.childMarkdownRemark.rawMarkdownBody
                 }}
               />
-              <div
+              <TextContent
                 dangerouslySetInnerHTML={{
                   __html: contentfulNews.content.childMarkdownRemark.html
                 }}
               />
-            </article>
-          </Content>
-        </div>
-      </FullRow>
-    </Layout>
+            </Content>
+          </div>
+        </FullRow>
+      </Layout>
+    </>
   );
 }
 
@@ -52,18 +57,19 @@ export const pageQuery = graphql`
       id
       title
       slug
+      createdAt
+      summary {
+        childMarkdownRemark {
+          rawMarkdownBody
+        }
+      }
       content {
         childMarkdownRemark {
           html
         }
       }
-      summary {
-        childMarkdownRemark {
-          html
-        }
-      }
       mainImage {
-        fluid(maxWidth: 1200, maxHeight: 500) {
+        fluid(maxWidth: 1000, maxHeight: 600) {
           ...GatsbyContentfulFluid
         }
       }
