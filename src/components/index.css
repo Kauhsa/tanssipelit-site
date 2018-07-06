@@ -1,7 +1,3 @@
-.container.center {
-  margin-right: auto;
-  margin-left: auto;
-}
 
 body {
   font-family: 'Karla', sans-serif;
@@ -55,99 +51,6 @@ button, button:focus, .primary, .primary:hover, .secondary, .thirdary, .accent {
 
 .accent:hover, .accent:focus {
   background-color: #B1E0F9;
-}
-
-/* Header & Navigation */
-header {
-  background-color: #3a2a6c;
-  width: 100%;
-  height: 72px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-}
-
-#logo {
-  float: left;
-  padding-top: 16px;
-  padding-left: 10px;
-}
-
-#logo-img {
-  height: 42px;
-  width: 213px;
-}
-
-nav {
-  float: right;
-  height: 72px;
-}
-
-#nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#nav ul li {
-  margin: 0;
-  display: inline-block;
-  float: left;
-  padding-right: 44px;
-  padding-top: 27px;
-  padding-bottom: 2px;
-}
-#nav ul li a {
-  color: #fff;
-  font-family: "Lato", Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  text-transform: uppercase;
-  display: block;
-  z-index: 100;
-  letter-spacing: 1px;
-  text-align: center;
-}
-#nav ul li a:hover, #nav li a.active {
-  border-bottom: 2px solid #fff;
-  transition: all 0s ease 0s;
-}
-
-@media only screen and (max-width: 48em) {  
-  nav {
-    float: none;
-    display: block;
-    position: fixed;
-    top: 72px;
-    width: 100%;
-  }
-  
-  .hidden-mobile {
-    display: none;
-  }
-
-  #nav ul {
-    height: auto;
-    background-color: #3a2a6c;
-    border-top: 1px solid #544585;
-  }
-
-  #nav ul li {
-    margin: 0;
-    display: block;
-    float: none;
-    padding: 15px 0;
-  }
-  #nav ul li a:hover, #nav li a.active {
-    border-bottom: none;
-    text-decoration: underline;
-  }
-}
-
-.grey {
-  background: #f6f6f6;
 }
 
 .bordered-content {

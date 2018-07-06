@@ -4,6 +4,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import Img from "gatsby-image";
 
+import FullRow from "../components/FullRow";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
 
@@ -16,23 +17,31 @@ const Ingress = styled.div`
 export default function Template({ data: { contentfulNews } }) {
   return (
     <Layout>
-      <Content>
-        <article>
+      <FullRow gray>
+        <div className="col-xs-12">
           <Img fluid={contentfulNews.mainImage.fluid} />
-          <Helmet title={contentfulNews.title} />
-          <h1>{contentfulNews.title}</h1>
-          <Ingress
-            dangerouslySetInnerHTML={{
-              __html: contentfulNews.summary.childMarkdownRemark.html
-            }}
-          />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: contentfulNews.content.childMarkdownRemark.html
-            }}
-          />
-        </article>
-      </Content>
+        </div>
+      </FullRow>
+      <FullRow>
+        <div className="col-xs-12">
+          <Content>
+            <article>
+              <Helmet title={contentfulNews.title} />
+              <h1>{contentfulNews.title}</h1>
+              <Ingress
+                dangerouslySetInnerHTML={{
+                  __html: contentfulNews.summary.childMarkdownRemark.html
+                }}
+              />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: contentfulNews.content.childMarkdownRemark.html
+                }}
+              />
+            </article>
+          </Content>
+        </div>
+      </FullRow>
     </Layout>
   );
 }

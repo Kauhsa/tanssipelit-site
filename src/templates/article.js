@@ -2,21 +2,26 @@ import { graphql } from "gatsby";
 import React from "react";
 import Helmet from "react-helmet";
 
+import FullRow from "../components/FullRow";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
 
 export default function Template({ data: { contentfulArticle } }) {
   return (
     <Layout>
-      <Content>
-        <Helmet title={contentfulArticle.title} />
-        <h1>{contentfulArticle.title}</h1>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: contentfulArticle.content.childMarkdownRemark.html
-          }}
-        />
-      </Content>
+      <FullRow>
+        <div className="col-xs-12">
+          <Content>
+            <Helmet title={contentfulArticle.title} />
+            <h1>{contentfulArticle.title}</h1>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: contentfulArticle.content.childMarkdownRemark.html
+              }}
+            />
+          </Content>
+        </div>
+      </FullRow>
     </Layout>
   );
 }

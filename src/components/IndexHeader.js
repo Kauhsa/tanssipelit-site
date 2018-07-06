@@ -6,16 +6,11 @@ import { TiCalendar, TiNews } from "react-icons/lib/ti";
 
 import { newsLink } from "../links";
 
+import FullRow from "./FullRow";
 import DateTime from "./DateTime";
 
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
-
-const HeaderRow = styled.div.attrs({
-  className: "row"
-})`
-  align-items: stretch;
-`;
 
 const Content = styled(Link)`
   display: block;
@@ -167,44 +162,40 @@ const News = () => (
       const [mostRecentNews, ...otherNews] = data.allContentfulNews.edges;
 
       return (
-        <section className="content grey">
-          <div className="container center">
-            <HeaderRow>
-              <HighlightNewsItem node={mostRecentNews.node} />
+        <FullRow gray stretch>
+          <HighlightNewsItem node={mostRecentNews.node} />
 
-              <SideContent>
-                <h2>
-                  <TiCalendar /> Tulevat tapahtumat:
-                </h2>
-                <ul>
-                  <SideContentItem>
-                    <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" />{" "}
-                    Staminaleiri
-                  </SideContentItem>
-                  <SideContentItem>
-                    <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" />{" "}
-                    Avoimet ovet
-                  </SideContentItem>
-                  <SideContentItem>
-                    <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" />{" "}
-                    Avoimet ovet
-                  </SideContentItem>
-                </ul>
+          <SideContent>
+            <h2>
+              <TiCalendar /> Tulevat tapahtumat:
+            </h2>
+            <ul>
+              <SideContentItem>
+                <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" />{" "}
+                Staminaleiri
+              </SideContentItem>
+              <SideContentItem>
+                <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" /> Avoimet
+                ovet
+              </SideContentItem>
+              <SideContentItem>
+                <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" /> Avoimet
+                ovet
+              </SideContentItem>
+            </ul>
 
-                <h2>
-                  <TiNews /> Muut uutiset:
-                </h2>
-                <ul>
-                  {otherNews.map(({ node }, i) => (
-                    <SideContentItem to={newsLink(node.slug)} key={i}>
-                      <DateTime dateTime={node.createdAt} /> {node.title}
-                    </SideContentItem>
-                  ))}
-                </ul>
-              </SideContent>
-            </HeaderRow>
-          </div>
-        </section>
+            <h2>
+              <TiNews /> Muut uutiset:
+            </h2>
+            <ul>
+              {otherNews.map(({ node }, i) => (
+                <SideContentItem to={newsLink(node.slug)} key={i}>
+                  <DateTime dateTime={node.createdAt} /> {node.title}
+                </SideContentItem>
+              ))}
+            </ul>
+          </SideContent>
+        </FullRow>
       );
     }}
   />
