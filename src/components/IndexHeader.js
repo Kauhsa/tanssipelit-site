@@ -147,10 +147,10 @@ class News extends React.Component {
   }
 
   getEvents = events => {
-    // if no date, we haven't rendered on client and don't know current date yet.
-    // render three empty entries.
+    // If no date, we haven't rendered on client and don't know current date yet.
+    // So – render empty entries!
     if (!this.state.date) {
-      return times(3, i => (
+      return times(Math.max(3, events.length), i => (
         <SideContentItem key={i}>
           <SideContentTime>&nbsp;</SideContentTime>
           &nbsp;
