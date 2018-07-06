@@ -116,6 +116,12 @@ class Header extends React.Component {
     });
   };
 
+  handleHideMenu = () => {
+    this.setState({
+      mobileMenuOpen: false
+    });
+  };
+
   render() {
     return (
       <StaticQuery
@@ -149,7 +155,12 @@ class Header extends React.Component {
                   >
                     <ul>
                       <li>
-                        <Link activeClassName="active" to="/" exact>
+                        <Link
+                          activeClassName="active"
+                          to="/"
+                          exact
+                          onClick={this.handleHideMenu}
+                        >
                           Etusivu
                         </Link>
                       </li>
@@ -159,6 +170,7 @@ class Header extends React.Component {
                           <Link
                             activeClassName="active"
                             to={articleLink(link.slug)}
+                            onClick={this.handleHideMenu}
                           >
                             {link.title}
                           </Link>
