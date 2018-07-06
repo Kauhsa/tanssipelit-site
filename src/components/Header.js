@@ -102,7 +102,8 @@ const MenuIcon = styled.a`
   }
 `;
 
-class Header extends React.PureComponent {
+// this CAN'T be PureComponent, or activeClassName in links won't work
+class Header extends React.Component {
   state = {
     mobileMenuOpen: false
   };
