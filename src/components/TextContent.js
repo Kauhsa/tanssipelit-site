@@ -5,6 +5,8 @@ const TextContent = styled.div`
     margin-top: 0;
   }
 
+  line-height: 1.4;
+
   h1,
   h2,
   h3 {
