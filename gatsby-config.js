@@ -21,6 +21,8 @@ module.exports = {
       options: {
         // Add any options here
       }
-    }
+    },
+
+    "gatsby-plugin-netlify"
   ]
 };
