@@ -1,10 +1,17 @@
 import React from "react";
 import Helmet from "react-helmet";
+import { injectGlobal } from "styled-components";
 
 import Header from "./Header";
 import "css-wipe/index.css";
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
+
+injectGlobal`
+  body {
+    font-family: 'Karla', sans-serif;
+  }
+`;
 
 export default ({ children }) => (
   <>

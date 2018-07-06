@@ -3,6 +3,10 @@ import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import Img from "gatsby-image";
 import { TiCalendar, TiNews } from "react-icons/lib/ti";
+import { times, take, sortBy } from "lodash-es";
+import isAfter from "date-fns/is_after";
+import startOfDay from "date-fns/start_of_day";
+import getTime from "date-fns/get_time";
 
 import { newsLink } from "../links";
 
@@ -101,104 +105,153 @@ const SideContent = styled.aside.attrs({
   }
 `;
 
+const SideContentTime = styled.div`
+  margin-bottom: 0.33rem;
+  color: rgba(0, 0, 0, 0.5);
+`;
+
 const SideContentItem = styled(({ to, className, children }) => (
   <li className={className}>
-    <Link to={to}>{children}</Link>
+    {to ? <Link to={to}>{children}</Link> : <span>{children}</span>}
   </li>
 ))`
   list-style-type: none;
   display: block;
 
-  a {
+  & > * {
     text-decoration: none;
     display: block;
     padding: 0.75rem;
     color: #111111;
     font-weight: 500;
 
-    ${DateTime} {
-      display: block;
-      margin-bottom: 0.33rem;
-      color: rgba(0, 0, 0, 0.5);
-    }
-
     background-color: rgba(255, 255, 255, 0.1);
   }
 
   &:nth-child(odd) {
-    a {
+    & > * {
       background-color: rgba(255, 255, 255, 0.5);
     }
   }
 `;
 
-const News = () => (
-  <StaticQuery
-    query={graphql`
-      query LatestNewsQuery {
-        allContentfulNews(limit: 3, sort: { fields: createdAt, order: DESC }) {
-          edges {
-            node {
-              id
-              title
-              slug
-              createdAt
-              summary {
-                childMarkdownRemark {
-                  html
+class News extends React.Component {
+  state = {
+    date: null
+  };
+
+  componentDidMount() {
+    this.setState({
+      date: Date.now()
+    });
+  }
+
+  getEvents = events => {
+    // if no date, we haven't rendered on client and don't know current date yet.
+    // render three empty entries.
+    if (!this.state.date) {
+      return times(3, i => (
+        <SideContentItem key={i}>
+          <SideContentTime>&nbsp;</SideContentTime>
+          &nbsp;
+        </SideContentItem>
+      ));
+    }
+
+    const futureEvents = events.map(({ node }) => node).filter(event => {
+      return isAfter(event.end || event.start, startOfDay(this.state.date));
+    });
+
+    const sortedFutureEvents = sortBy(futureEvents, event =>
+      getTime(event.start)
+    );
+
+    return take(sortedFutureEvents, 3).map((event, i) => (
+      <SideContentItem key={i}>
+        <SideContentTime>
+          <DateTime dateTime={event.start} format="dd D.M.YYYY" />
+          {event.end && <DateTime dateTime={event.end} format="–dd D.M.YYYY" />}
+        </SideContentTime>
+        {event.eventName}
+      </SideContentItem>
+    ));
+  };
+
+  render() {
+    return (
+      <StaticQuery
+        query={graphql`
+          query LatestNewsQuery {
+            allContentfulNews(
+              limit: 3
+              sort: { fields: createdAt, order: DESC }
+            ) {
+              edges {
+                node {
+                  id
+                  title
+                  slug
+                  createdAt
+                  summary {
+                    childMarkdownRemark {
+                      html
+                    }
+                  }
+                  mainImage {
+                    fluid(maxWidth: 1000, maxHeight: 600) {
+                      ...GatsbyContentfulFluid
+                    }
+                  }
                 }
               }
-              mainImage {
-                fluid(maxWidth: 1000, maxHeight: 600) {
-                  ...GatsbyContentfulFluid
+            }
+
+            allContentfulCalendarEntry {
+              edges {
+                node {
+                  id
+                  eventName
+                  start
+                  end
                 }
               }
             }
           }
-        }
-      }
-    `}
-    render={data => {
-      const [mostRecentNews, ...otherNews] = data.allContentfulNews.edges;
+        `}
+        render={data => {
+          const [mostRecentNews, ...otherNews] = data.allContentfulNews.edges;
+          const allEvents = data.allContentfulCalendarEntry.edges;
 
-      return (
-        <FullRow gray stretch>
-          <HighlightNewsItem node={mostRecentNews.node} />
+          return (
+            <FullRow gray stretch>
+              <HighlightNewsItem node={mostRecentNews.node} />
 
-          <SideContent>
-            <h2>
-              <TiCalendar /> Tulevat tapahtumat:
-            </h2>
-            <ul>
-              <SideContentItem>
-                <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" />{" "}
-                Staminaleiri
-              </SideContentItem>
-              <SideContentItem>
-                <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" /> Avoimet
-                ovet
-              </SideContentItem>
-              <SideContentItem>
-                <DateTime format="dd D.M.YYYY" dateTime="01-01-2018" /> Avoimet
-                ovet
-              </SideContentItem>
-            </ul>
+              <SideContent>
+                <h2>
+                  <TiCalendar /> Tulevat tapahtumat:
+                </h2>
+                <ul>{this.getEvents(allEvents)}</ul>
 
-            <h2>
-              <TiNews /> Muut uutiset:
-            </h2>
-            <ul>
-              {otherNews.map(({ node }, i) => (
-                <SideContentItem to={newsLink(node.slug)} key={i}>
-                  <DateTime dateTime={node.createdAt} /> {node.title}
-                </SideContentItem>
-              ))}
-            </ul>
-          </SideContent>
-        </FullRow>
-      );
-    }}
-  />
-);
+                <h2>
+                  <TiNews /> Muut uutiset:
+                </h2>
+                <ul>
+                  {otherNews.map(({ node }, i) => (
+                    <SideContentItem to={newsLink(node.slug)} key={i}>
+                      <SideContentTime>
+                        <DateTime dateTime={node.createdAt} />
+                      </SideContentTime>{" "}
+                      {node.title}
+                    </SideContentItem>
+                  ))}
+                </ul>
+              </SideContent>
+            </FullRow>
+          );
+        }}
+      />
+    );
+  }
+}
 
 export default News;

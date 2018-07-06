@@ -1,8 +1,4 @@
 
-body {
-  font-family: 'Karla', sans-serif;
-}
-
 /* Buttons */
 button, button:focus, .primary, .primary:hover, .secondary, .thirdary, .accent {
   color: #fff;
@@ -51,24 +47,4 @@ button, button:focus, .primary, .primary:hover, .secondary, .thirdary, .accent {
 
 .accent:hover, .accent:focus {
   background-color: #B1E0F9;
-}
-
-.bordered-content {
-  background: #fff;
-  padding: 40px 45px 30px;
-  position: relative;
-  margin-bottom: 30px;
-}
-
-.bordered-content h5, .bordered-content h4, .bordered-content h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.image-wrapper img {
-  position: relative;
-  height: auto;
-  width: 100%;
-  z-index: 9;
-  box-shadow: #fff 0 0 0;
 }
