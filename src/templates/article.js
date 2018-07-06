@@ -14,10 +14,11 @@ export default function Template({ data: { contentfulArticle } }) {
         <div className="col-xs-12">
           <Content>
             <Helmet title={contentfulArticle.title} />
-            <h1>{contentfulArticle.title}</h1>
             <TextContent
               dangerouslySetInnerHTML={{
-                __html: contentfulArticle.content.childMarkdownRemark.html
+                __html:
+                  `<h1>${contentfulArticle.title}</h1>` +
+                  contentfulArticle.content.childMarkdownRemark.html
               }}
             />
           </Content>
