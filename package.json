@@ -5,6 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
+    "common-tags": "^1.8.0",
     "css-wipe": "^4.3.0",
     "date-fns": "^1.29.0",
     "flexboxgrid": "^6.3.1",
