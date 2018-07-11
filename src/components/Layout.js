@@ -3,6 +3,7 @@ import Helmet from "react-helmet";
 import { injectGlobal } from "styled-components";
 
 import Header from "./Header";
+import Footer from "./Footer";
 import "css-wipe/index.css";
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
@@ -40,6 +41,7 @@ export default ({ children }) => (
         />
       </Helmet>
       {children}
+      <Footer />
     </div>
   </>
 );

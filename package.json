@@ -20,6 +20,7 @@
     "gatsby-transformer-remark": "^2.1.1-beta.2",
     "gatsby-transformer-sharp": "^2.1.1-beta.3",
     "lodash-es": "^4.17.10",
+    "polished": "^1.9.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-headroom": "^2.2.2",

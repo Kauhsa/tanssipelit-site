@@ -29,4 +29,4 @@ const FullRow = ({ children, ...rest }) => (
   </Container>
 );
 
-export default FullRow;
+export default styled(FullRow)``;

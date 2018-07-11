@@ -25,6 +25,15 @@ const TextContent = styled.div`
     margin-top: 0;
   }
 
+  a {
+    color: #4f3af6;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   line-height: 1.5;
 
   h1,
