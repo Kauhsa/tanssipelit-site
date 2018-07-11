@@ -8,6 +8,10 @@ import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
 
 injectGlobal`
+  :root {
+    font-size: 18px;
+  }
+
   html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -27,7 +31,7 @@ export default ({ children }) => (
         defaultTitle={"Tanssipelit.fi"}
       >
         <link
-          href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,500,500i,700,700i,900,900i"
+          href="https://fonts.googleapis.com/css?family=Play:400,700"
           rel="stylesheet"
         />
         <link

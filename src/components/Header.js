@@ -27,6 +27,7 @@ const HeaderContainer = styled(Headroom)`
       height: 100%;
       display: flex;
       align-items: center;
+      font-family: Play;
     }
 
     #nav ul li {
@@ -38,16 +39,15 @@ const HeaderContainer = styled(Headroom)`
     #nav ul li a {
       color: #fff;
       text-decoration: none;
-      text-transform: uppercase;
       display: block;
       text-align: center;
       font-weight: bold;
-      border-bottom: 2px solid rgba(0, 0, 0, 0);
+      border-bottom: 1px solid rgba(0, 0, 0, 0);
     }
 
     #nav ul li a:hover,
     #nav li a.active {
-      border-bottom: 2px solid #fff;
+      border-bottom: 1px solid #fff;
       transition: all 0s ease 0s;
     }
 

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Img from "gatsby-image";
 
 import DateTime from "./DateTime";
+import TextContent from "./TextContent";
 
 const Content = styled.div`
   display: block;
@@ -24,33 +25,30 @@ const ItemContent = styled.div`
   color: white;
 `;
 
-const Text = styled.div`
+const Text = TextContent.extend`
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 2rem;
-  color: white !important;
+  line-height: 1;
+  color: white;
 
-  h1 {
-    font-weight: bold;
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  h2 {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+  h1,
+  h2,
+  h3,
+  ${DateTime}, p {
+    margin: 0 0 1rem 0;
   }
 
   ${DateTime} {
     display: block;
     color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 0 1rem 0;
   }
 
-  p {
-    margin-top: 1rem;
+  *:last-child {
+    margin: 0;
   }
 `;
 

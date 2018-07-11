@@ -1,35 +1,52 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const headerBase = css`
+  font-family: Play;
+  font-weight: 600;
+`;
+
+export const h1 = css`
+  ${headerBase};
+  font-size: 3rem;
+`;
+
+export const h2 = css`
+  ${headerBase};
+  font-size: 2rem;
+`;
+
+export const h3 = css`
+  ${headerBase};
+  font-size: 1.3rem;
+`;
 
 const TextContent = styled.div`
   *:first-child {
     margin-top: 0;
   }
 
-  line-height: 1.4;
+  line-height: 1.5;
 
   h1,
   h2,
   h3 {
-    margin: 2rem 0;
+    margin: 1.5rem 0;
+  }
+
+  h1 {
+    ${h1};
+  }
+
+  h2 {
+    ${h2};
+  }
+
+  h3 {
+    ${h3};
   }
 
   p {
     margin: 1rem 0;
-  }
-
-  h1 {
-    font-weight: 600;
-    font-size: 3rem;
-  }
-
-  h2 {
-    font-weight: 600;
-    font-size: 2rem;
-  }
-
-  h3 {
-    font-weight: 600;
-    font-size: 1.5rem;
   }
 
   em {

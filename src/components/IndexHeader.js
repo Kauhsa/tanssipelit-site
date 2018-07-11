@@ -9,6 +9,7 @@ import getTime from "date-fns/get_time";
 
 import { newsLink } from "../links";
 
+import { h3 } from "./TextContent";
 import TextImage from "./TextImage";
 import FullRow from "./FullRow";
 import DateTime from "./DateTime";
@@ -32,9 +33,8 @@ const SideContent = styled.aside.attrs({
 })`
   padding: 2rem;
 
-  h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
+  h3 {
+    ${h3};
     margin-bottom: 1rem;
 
     svg {
@@ -172,14 +172,14 @@ class News extends React.Component {
               <HighlightNewsItem node={mostRecentNews.node} />
 
               <SideContent>
-                <h2>
-                  <TiCalendar /> Tulevat tapahtumat:
-                </h2>
+                <h3>
+                  <TiCalendar /> Tulevat tapahtumat
+                </h3>
                 <ul>{this.getEvents(allEvents)}</ul>
 
-                <h2>
-                  <TiNews /> Muut uutiset:
-                </h2>
+                <h3>
+                  <TiNews /> Muut uutiset
+                </h3>
                 <ul>
                   {otherNews.map(({ node }, i) => (
                     <SideContentItem to={newsLink(node.slug)} key={i}>
