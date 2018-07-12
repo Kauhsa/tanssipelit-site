@@ -19,7 +19,7 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Karla', sans-serif;
+    font-family: 'Lato', sans-serif;
   }
 `;
 
@@ -32,11 +32,7 @@ export default ({ children }) => (
         defaultTitle={"Tanssipelit.fi"}
       >
         <link
-          href="https://fonts.googleapis.com/css?family=Play:400,700"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i"
+          href="https://fonts.googleapis.com/css?family=Lato:400,700,900,400i"
           rel="stylesheet"
         />
       </Helmet>

@@ -9,31 +9,38 @@ import { articleLink } from "../links";
 import logo from "../images/stp_logo.png";
 
 const HeaderContainer = styled(Headroom)`
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  .headroom--unfixed header {
+    background-color: rgba(16, 0, 65, 0);
+  }
+
   header {
     width: 100%;
-    height: 5rem;
-    background-color: #3a2a6c;
+    display: flex;
+    height: 6rem;
+    transition: background-color 250ms;
+    background-color: rgba(16, 0, 65, 0.95);
 
     #logo {
-      height: 100%;
-      float: left;
       display: flex;
       align-items: center;
-      padding: 0 2rem;
+      margin-left: 3rem;
     }
 
     nav {
-      float: right;
-      height: 100%;
+      margin-left: auto;
+      margin-right: 3rem;
       display: flex;
       align-items: center;
-      font-family: Play;
+      font-size: 1rem;
     }
 
     #nav ul li {
-      margin: 0;
       display: inline-block;
-      margin-right: 2rem;
+      margin-left: 2rem;
     }
 
     #nav ul li a {
@@ -41,14 +48,15 @@ const HeaderContainer = styled(Headroom)`
       text-decoration: none;
       display: block;
       text-align: center;
-      font-weight: bold;
       border-bottom: 1px solid rgba(0, 0, 0, 0);
     }
 
-    #nav ul li a:hover,
-    #nav li a.active {
+    #nav ul li a:hover {
       border-bottom: 1px solid #fff;
-      transition: all 0s ease 0s;
+    }
+
+    #nav li a.active {
+      font-weight: 900;
     }
 
     @media only screen and (max-width: 48em) {
@@ -138,48 +146,46 @@ class Header extends React.Component {
         `}
         render={data => (
           <HeaderContainer>
-            <FullRow gray>
-              <div className="col-xs-12">
-                <header>
-                  <Link id="logo" to="/">
-                    <img src={logo} alt="logo" id="logo-img" />
-                  </Link>
-                  <MenuIcon onClick={this.handleToggleMenu}>
-                    <FaBars />
-                  </MenuIcon>
-                  <nav
-                    id="nav"
-                    className={
-                      this.state.mobileMenuOpen ? undefined : "hidden-mobile"
-                    }
-                  >
-                    <ul>
-                      <li>
+            <FullRow>
+              <header>
+                <Link id="logo" to="/">
+                  <img src={logo} alt="logo" id="logo-img" />
+                </Link>
+                <MenuIcon onClick={this.handleToggleMenu}>
+                  <FaBars />
+                </MenuIcon>
+                <nav
+                  id="nav"
+                  className={
+                    this.state.mobileMenuOpen ? undefined : "hidden-mobile"
+                  }
+                >
+                  <ul>
+                    <li>
+                      <Link
+                        activeClassName="active"
+                        to="/"
+                        exact
+                        onClick={this.handleHideMenu}
+                      >
+                        Etusivu
+                      </Link>
+                    </li>
+
+                    {data.contentfulSettings.navigation.map(link => (
+                      <li key={link.id}>
                         <Link
                           activeClassName="active"
-                          to="/"
-                          exact
+                          to={articleLink(link.slug)}
                           onClick={this.handleHideMenu}
                         >
-                          Etusivu
+                          {link.title}
                         </Link>
                       </li>
-
-                      {data.contentfulSettings.navigation.map(link => (
-                        <li key={link.id}>
-                          <Link
-                            activeClassName="active"
-                            to={articleLink(link.slug)}
-                            onClick={this.handleHideMenu}
-                          >
-                            {link.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                </header>
-              </div>
+                    ))}
+                  </ul>
+                </nav>
+              </header>
             </FullRow>
           </HeaderContainer>
         )}

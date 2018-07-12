@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const headerBase = css`
-  font-family: Play;
+  font-family: Lato;
   font-weight: 600;
 `;
 

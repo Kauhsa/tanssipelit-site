@@ -1,18 +1,10 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Container = styled.div`
-  ${props =>
-    props.gray &&
-    css`
-      background-color: #f6f6f6;
-    `};
-`;
-
-const Centered = styled.div.attrs({
-  className: "container"
-})`
+const Centered = styled.div`
   margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
 
   ${props =>
     props.stretch &&
@@ -22,11 +14,9 @@ const Centered = styled.div.attrs({
 `;
 
 const FullRow = ({ children, ...rest }) => (
-  <Container {...rest}>
-    <Centered>
-      <div className="row">{children}</div>
-    </Centered>
-  </Container>
+  <div {...rest}>
+    <Centered>{children}</Centered>
+  </div>
 );
 
 export default styled(FullRow)``;

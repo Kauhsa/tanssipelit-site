@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
-import { TiCalendar, TiNews } from "react-icons/lib/ti";
 import { times, take, sortBy } from "lodash-es";
 import isAfter from "date-fns/is_after";
 import startOfDay from "date-fns/start_of_day";
@@ -11,73 +10,133 @@ import { newsLink } from "../links";
 
 import { h3 } from "./TextContent";
 import TextImage from "./TextImage";
-import FullRow from "./FullRow";
 import DateTime from "./DateTime";
 
-const HighlightNewsItem = ({
-  node: { summary, title, slug, mainImage, createdAt }
-}) => (
-  <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-    <Link to={newsLink(slug)}>
-      <TextImage fluid={mainImage.fluid}>
-        <h2>{title}</h2>
-        <DateTime dateTime={createdAt} />
-        <p>{summary.childMarkdownRemark.rawMarkdownBody}</p>
-      </TextImage>
-    </Link>
-  </div>
-);
+import backgroundImage from "../images/kuva.png";
 
-const SideContent = styled.aside.attrs({
-  className: "col-lg-4 col-md-4 col-sm-4 col-xs-12"
-})`
-  padding: 2rem;
+import FullRow from "./FullRow";
 
-  h3 {
-    ${h3};
-    margin-bottom: 1rem;
+const BackgroundContainer = styled.div`
+  background-image: url(${backgroundImage});
+  background-position: center;
+  background-size: cover;
+`;
 
-    svg {
-      vertical-align: text-bottom !important;
-      font-size: 1.5rem;
-      margin-right: 0.5rem;
-    }
+const NewsContainer = styled.div`
+  a {
+    display: block;
+  }
+`;
+
+const SideContent = styled.aside`
+  font-size: 1.1rem;
+  font-weight: bold;
+
+  ul:not(:last-child) {
+    margin-bottom: 3rem;
   }
 
-  ul {
-    margin-bottom: 2rem;
-    border-left: 3px solid #3a2a6c;
+  a {
+    text-decoration: none;
+    color: white;
   }
 `;
 
 const SideContentTime = styled.div`
-  margin-bottom: 0.33rem;
-  color: rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
+  margin-top: 0.4rem;
 `;
+
+const Container = styled.div`
+  background: rgba(16, 0, 65, 0.95);
+  padding: 6rem 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-basis: 100%;
+  color: white;
+
+  @media only screen and (max-width: 48em) {
+    display: block;
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    background: rgba(255, 255, 255, 0.95);
+    top: 0;
+    height: 100%;
+    width: 100vw;
+  }
+
+  &::after {
+    right: 100%;
+  }
+
+  &::before {
+    left: 100%;
+  }
+
+  ${NewsContainer} {
+    padding: 1.5rem;
+    flex-basis: 65%;
+
+    @media only screen and (max-width: 48em) {
+      padding: 0;
+      padding-bottom: 1.5rem;
+
+      a {
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+      }
+    }
+  }
+
+  ${SideContent} {
+    @media only screen and (max-width: 48em) {
+      padding: 0;
+    }
+
+    padding: 1.5rem;
+    flex-basis: 35%;
+  }
+`;
+
+const Title = styled.h2`
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+`;
+
+const HighlightNewsItem = ({
+  node: { summary, title, slug, mainImage, createdAt }
+}) => (
+  <NewsContainer>
+    <Title>Tuorein uutinen</Title>
+    <Link to={newsLink(slug)}>
+      <TextImage fluid={mainImage.fluid}>
+        <h2>{title}</h2>
+        <DateTime dateTime={createdAt} />
+      </TextImage>
+    </Link>
+  </NewsContainer>
+);
 
 const SideContentItem = styled(({ to, className, children }) => (
   <li className={className}>
     {to ? <Link to={to}>{children}</Link> : <span>{children}</span>}
   </li>
 ))`
+  color: white;
   list-style-type: none;
   display: block;
-
-  & > * {
-    text-decoration: none;
-    display: block;
-    padding: 0.75rem;
-    color: #111111;
-    font-weight: 500;
-
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  &:nth-child(odd) {
-    & > * {
-      background-color: rgba(255, 255, 255, 0.5);
-    }
-  }
+  margin-bottom: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1rem;
 `;
 
 class News extends React.Component {
@@ -113,11 +172,11 @@ class News extends React.Component {
 
     return take(sortedFutureEvents, 3).map((event, i) => (
       <SideContentItem key={i}>
+        <h3>{event.eventName}</h3>
         <SideContentTime>
-          <DateTime dateTime={event.start} format="dd D.M.YYYY" />
-          {event.end && <DateTime dateTime={event.end} format="–dd D.M.YYYY" />}
+          <DateTime dateTime={event.start} format="dd D.M." />
+          {event.end && <DateTime dateTime={event.end} format="–dd D.M." />}
         </SideContentTime>
-        {event.eventName}
       </SideContentItem>
     ));
   };
@@ -168,30 +227,30 @@ class News extends React.Component {
           const allEvents = data.allContentfulCalendarEntry.edges;
 
           return (
-            <FullRow gray stretch>
-              <HighlightNewsItem node={mostRecentNews.node} />
+            <BackgroundContainer>
+              <FullRow>
+                <Container>
+                  <HighlightNewsItem node={mostRecentNews.node} />
 
-              <SideContent>
-                <h3>
-                  <TiCalendar /> Tulevat tapahtumat
-                </h3>
-                <ul>{this.getEvents(allEvents)}</ul>
+                  <SideContent>
+                    <Title>Tulevat tapahtumat</Title>
+                    <ul>{this.getEvents(allEvents)}</ul>
 
-                <h3>
-                  <TiNews /> Muut uutiset
-                </h3>
-                <ul>
-                  {otherNews.map(({ node }, i) => (
-                    <SideContentItem to={newsLink(node.slug)} key={i}>
-                      <SideContentTime>
-                        <DateTime dateTime={node.createdAt} />
-                      </SideContentTime>{" "}
-                      {node.title}
-                    </SideContentItem>
-                  ))}
-                </ul>
-              </SideContent>
-            </FullRow>
+                    <Title>Muut uutiset</Title>
+                    <ul>
+                      {otherNews.map(({ node }, i) => (
+                        <SideContentItem to={newsLink(node.slug)} key={i}>
+                          <h3>{node.title}</h3>
+                          <SideContentTime>
+                            <DateTime dateTime={node.createdAt} />
+                          </SideContentTime>
+                        </SideContentItem>
+                      ))}
+                    </ul>
+                  </SideContent>
+                </Container>
+              </FullRow>
+            </BackgroundContainer>
           );
         }}
       />

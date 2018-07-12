@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Img from "gatsby-image";
 
 import DateTime from "./DateTime";
-import TextContent from "./TextContent";
 
 const Content = styled.div`
   display: block;
@@ -21,11 +20,19 @@ const ItemContent = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
+  background: linear-gradient(
+    180deg,
+    rgba(16, 0, 65, 0) 0%,
+    rgba(3, 0, 12, 0.46) 100%
+  );
+
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2),
+    inset 0px 0px 40px rgba(0, 0, 0, 0.25);
+
   color: white;
 `;
 
-const Text = TextContent.extend`
+const Text = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -37,14 +44,21 @@ const Text = TextContent.extend`
   h1,
   h2,
   h3,
-  ${DateTime}, p {
-    margin: 0 0 1rem 0;
+  ${DateTime} {
+    margin: 0 0 0.75rem 0;
+  }
+
+  h1,
+  h2 {
+    font-weight: 900;
+    font-size: 2rem;
+    text-shadow: 0px 0px 20px #000000;
   }
 
   ${DateTime} {
     display: block;
     color: rgba(255, 255, 255, 0.8);
-    margin: 0 0 0 1rem 0;
+    text-shadow: 0px 0px 20px #000000;
   }
 
   *:last-child {
