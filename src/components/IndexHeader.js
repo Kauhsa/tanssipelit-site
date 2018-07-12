@@ -29,7 +29,7 @@ const NewsContainer = styled.div`
 `;
 
 const SideContent = styled.aside`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
 
   ul:not(:last-child) {
@@ -43,6 +43,7 @@ const SideContent = styled.aside`
 `;
 
 const SideContentTime = styled.div`
+  font-weight: 400;
   opacity: 0.8;
   margin-top: 0.4rem;
 `;
@@ -84,7 +85,7 @@ const Container = styled.div`
 
     @media only screen and (max-width: 48em) {
       padding: 0;
-      padding-bottom: 1.5rem;
+      padding-bottom: 3rem;
 
       a {
         margin-left: -1.5rem;
@@ -104,10 +105,11 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 1.1rem;
+  opacity: 0.9;
+  font-size: 0.8rem;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   margin-left: 1rem;
   margin-bottom: 1rem;
 `;
@@ -134,9 +136,15 @@ const SideContentItem = styled(({ to, className, children }) => (
   color: white;
   list-style-type: none;
   display: block;
-  margin-bottom: 0.25rem;
-  background-color: rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.1rem;
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 1rem;
+  transition: border-left 250ms;
+  border-left: 0px solid rgba(255, 255, 255, 0);
+
+  &:hover {
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+  }
 `;
 
 class News extends React.Component {
