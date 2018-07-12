@@ -118,7 +118,7 @@ const HighlightNewsItem = ({
   node: { summary, title, slug, mainImage, createdAt }
 }) => (
   <NewsContainer>
-    <Title>Tuorein uutinen</Title>
+    <Title>Ajankohtaista</Title>
     <Link to={newsLink(slug)}>
       <TextImage fluid={mainImage.fluid}>
         <h2>{title}</h2>
