@@ -48,9 +48,20 @@ const SideContentTime = styled.div`
   margin-top: 0.4rem;
 `;
 
+const Title = styled.h2`
+  opacity: 0.9;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+`;
+
 const Container = styled.div`
   background: rgba(16, 0, 65, 0.95);
-  padding: 6rem 1.5rem 1.5rem 1.5rem;
+  padding: 6rem 1.5rem 0 0;
   position: relative;
   display: flex;
   flex-basis: 100%;
@@ -80,8 +91,9 @@ const Container = styled.div`
   }
 
   ${NewsContainer} {
-    padding: 1.5rem;
-    flex-basis: 65%;
+    padding-right: 1.5rem;
+
+    flex-basis: 67%;
 
     @media only screen and (max-width: 48em) {
       padding: 0;
@@ -100,25 +112,14 @@ const Container = styled.div`
     }
 
     padding: 1.5rem;
-    flex-basis: 35%;
+    flex-basis: 33%;
   }
-`;
-
-const Title = styled.h2`
-  opacity: 0.9;
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-left: 1rem;
-  margin-bottom: 1rem;
 `;
 
 const HighlightNewsItem = ({
   node: { summary, title, slug, mainImage, createdAt }
 }) => (
   <NewsContainer>
-    <Title>Ajankohtaista</Title>
     <Link to={newsLink(slug)}>
       <TextImage fluid={mainImage.fluid}>
         <h2>{title}</h2>
@@ -136,14 +137,14 @@ const SideContentItem = styled(({ to, className, children }) => (
   color: white;
   list-style-type: none;
   display: block;
-  margin-bottom: 0.1rem;
-  background: linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
-  padding: 1rem;
-  transition: border-left 250ms;
-  border-left: 0px solid rgba(255, 255, 255, 0);
+  transition: border-left 250ms, padding-left 250ms;
+  border-left: 0 solid rgba(255, 255, 255, 0);
+  padding-left: 0;
+  margin: 2rem 0;
 
   &:hover {
     border-left: 4px solid rgba(255, 255, 255, 0.5);
+    padding-left: 8px;
   }
 `;
 
