@@ -35,7 +35,9 @@ const HeaderContainer = styled(Headroom)`
       margin-right: 3rem;
       display: flex;
       align-items: center;
-      font-size: 1rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     #nav ul li {
