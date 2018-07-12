@@ -137,7 +137,7 @@ const SideContentItem = styled(({ to, className, children }) => (
   list-style-type: none;
   display: block;
   margin-bottom: 0.1rem;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
   padding: 1rem;
   transition: border-left 250ms;
   border-left: 0px solid rgba(255, 255, 255, 0);
