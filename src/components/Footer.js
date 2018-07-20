@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import media from "styled-media-query";
 import { StaticQuery, graphql } from "gatsby";
 
 import { colors } from "../style";
@@ -30,19 +31,20 @@ const FooterRow = FullRow.extend`
     right: 0;
     background: url(${props => props.background});
     background-size: cover;
-    background-position: center;
+    background-position: center bottom;
     opacity: 0.02;
     z-index: -1;
   }
 `;
 
 const FooterContainer = styled.div`
-  display: flex;
+  ${media.greaterThan("medium")`
+    display: flex;
+  `};
 `;
 
 const FooterSection = styled.div`
   padding: 2rem;
-  max-width: calc(100% / 3);
   flex-basis: calc(100% / 3);
 
   img {

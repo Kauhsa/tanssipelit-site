@@ -3,14 +3,18 @@ import React from "react";
 import Headroom from "react-headroom";
 import FaBars from "react-icons/lib/fa/bars";
 import styled, { css } from "styled-components";
+import media from "styled-media-query";
 
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
-import { transparentize } from "polished";
+import { transparentize, lighten } from "polished";
 import { colors } from "../style";
 
 import stpLogo from "../images/stp_logo.png";
+
 export const headerHeight = "9rem";
+
+const headerBackground = transparentize(0.05, colors.purple);
 
 const HeaderContainer = styled(Headroom)`
   ${props =>
@@ -31,12 +35,12 @@ const HeaderContainer = styled(Headroom)`
     display: flex;
     height: ${headerHeight};
     transition: background-color 250ms;
-    background-color: ${transparentize(0.05, colors.purple)};
+    background-color: ${headerBackground};
     justify-content: stretch;
 
     #logo {
       display: block;
-      margin: 2rem 3rem;
+      margin: 2rem 1rem 2rem 3rem;
       flex-grow: 1;
       background-image: url('${stpLogo}');
       background-size: contain;
@@ -51,59 +55,63 @@ const HeaderContainer = styled(Headroom)`
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
+
+      ul li {
+        display: inline-block;
+        margin-left: 2rem;
+        
+        a {
+          color: #fff;
+          text-decoration: none;
+          display: block;
+          text-align: center;
+          border-bottom: 1px solid rgba(0, 0, 0, 0);
+        
+          &:hover {
+            border-bottom: 1px solid #fff;
+          }
+
+          &.active {
+            font-weight: 900;
+          }
+        }
+      }
     }
 
-    #nav ul li {
-      display: inline-block;
-      margin-left: 2rem;
-    }
-
-    #nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      display: block;
-      text-align: center;
-      border-bottom: 1px solid rgba(0, 0, 0, 0);
-    }
-
-    #nav ul li a:hover {
-      border-bottom: 1px solid #fff;
-    }
-
-    #nav li a.active {
-      font-weight: 900;
-    }
-
-    @media only screen and (max-width: 48em) {
+    ${media.lessThan("medium")`
       nav {
         float: none;
         display: block;
         position: fixed;
-        top: 5rem;
+        top: ${headerHeight};
         width: 100%;
-      }
+        
+        ul {
+          background-color: ${headerBackground};
+          border-top: 1px solid #544585;
+          border-bottom: none;
 
+          li {
+            margin: 0;
+            display: block;
+
+            &:hover {
+              background-color: ${lighten(0.1, headerBackground)}
+            }
+            
+            a {
+              padding: 1rem 0;
+              border: none !important;
+            }
+          }
+        }
+      }
+      
       .hidden-mobile {
         display: none;
       }
-
-      #nav ul {
-        background-color: #3a2a6c;
-        border-top: 1px solid #544585;
-      }
-
-      #nav ul li {
-        margin: 0;
-        display: block;
-        padding: 15px 0;
-      }
-      #nav ul li a:hover,
-      #nav li a.active {
-        border-bottom: none;
-        text-decoration: underline;
-      }
     }
-  }
+  `}
 `;
 
 const MenuIcon = styled.a`
@@ -113,10 +121,11 @@ const MenuIcon = styled.a`
   align-items: center;
   cursor: pointer;
   padding: 0 2rem;
+  user-select: none;
 
-  @media only screen and (max-width: 48em) {
+  ${media.lessThan("medium")`
     display: flex;
-  }
+  `};
 
   svg {
     height: 2rem;
@@ -168,7 +177,6 @@ class Header extends React.Component {
                   <FaBars />
                 </MenuIcon>
                 <nav
-                  id="nav"
                   className={
                     this.state.mobileMenuOpen ? undefined : "hidden-mobile"
                   }

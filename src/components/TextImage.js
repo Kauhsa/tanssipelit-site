@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import media from "styled-media-query";
 import Img from "gatsby-image";
 
 import DateTime from "./DateTime";
@@ -40,6 +41,10 @@ const Text = styled.div`
   padding: 2rem;
   line-height: 1;
   color: white;
+
+  ${media.lessThan("medium")`
+    padding: 2rem 3rem;
+  `}
 
   h1,
   h2,

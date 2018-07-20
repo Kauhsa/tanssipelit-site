@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import media from "styled-media-query";
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import { times, take, sortBy } from "lodash-es";
@@ -47,30 +48,26 @@ const Container = PurpleContainer.extend`
   display: flex;
   flex-basis: 100%;
 
-  @media only screen and (max-width: 48em) {
+  ${media.lessThan("medium")`
     display: block;
-  }
+  `};
 
   ${NewsContainer} {
     padding-right: 1.5rem;
     flex-basis: 67%;
 
-    @media only screen and (max-width: 48em) {
+    ${media.lessThan("medium")`
       padding: 0;
-      padding-bottom: 3rem;
+      padding-bottom: 1.5rem;
 
       a {
         margin-left: -1.5rem;
         margin-right: -1.5rem;
       }
-    }
+    `};
   }
 
   ${SideContent} {
-    @media only screen and (max-width: 48em) {
-      padding: 0;
-    }
-
     padding: 1.5rem;
     flex-basis: 33%;
   }
