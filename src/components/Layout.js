@@ -4,11 +4,10 @@ import { injectGlobal } from "styled-components";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import "css-wipe/index.css";
-import "flexboxgrid/css/flexboxgrid.min.css";
-import "./index.css";
 import PurpleContainer from "./PurpleContainer";
-import FullRow from "./FullRow";
+
+import "css-wipe/index.css";
+import "./index.css";
 
 injectGlobal`
   :root {

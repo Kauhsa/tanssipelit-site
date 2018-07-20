@@ -8,7 +8,6 @@
     "common-tags": "^1.8.0",
     "css-wipe": "^4.3.0",
     "date-fns": "^1.29.0",
-    "flexboxgrid": "^6.3.1",
     "gatsby": "^2.0.0-beta.2",
     "gatsby-image": "^2.0.0-beta.3",
     "gatsby-plugin-netlify": "^2.0.0-beta.2",
@@ -21,12 +20,14 @@
     "gatsby-transformer-sharp": "^2.1.1-beta.3",
     "lodash-es": "^4.17.10",
     "polished": "^1.9.3",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-headroom": "^2.2.2",
     "react-helmet": "^5.2.0",
     "react-icons": "^2.2.7",
-    "styled-components": "^3.3.2"
+    "styled-components": "^3.3.2",
+    "styled-media-query": "^2.0.2"
   },
   "keywords": [
     "gatsby"

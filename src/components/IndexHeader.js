@@ -12,7 +12,6 @@ import { h3, SectionTitle } from "./TextContent";
 import TextImage from "./TextImage";
 import DateTime from "./DateTime";
 
-import FullRow from "./FullRow";
 import { headerHeight } from "./Header";
 import PurpleContainer from "./PurpleContainer";
 

@@ -4477,10 +4477,6 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flexboxgrid@^6.3.1:
-  version "6.3.1"
-  resolved "https://registry.npmjs.org/flexboxgrid/-/flexboxgrid-6.3.1.tgz#e99898afc07b7047722bb81a958a5fba4d4e20fd"
-
 flush-write-stream@^1.0.0:
   version "1.0.3"
   resolved "https://registry.npmjs.org/flush-write-stream/-/flush-write-stream-1.0.3.tgz#c5d586ef38af6097650b49bc41b55fabb19f35bd"
@@ -10127,6 +10123,10 @@ styled-components@^3.3.2:
     stylis "^3.5.0"
     stylis-rule-sheet "^0.0.10"
     supports-color "^3.2.3"
+
+styled-media-query@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/styled-media-query/-/styled-media-query-2.0.2.tgz#65347d5367f69458f86dc7dd723f42faae304ad1"
 
 stylehacks@^4.0.0:
   version "4.0.0"
