@@ -40,7 +40,7 @@ const HeaderContainer = styled(Headroom)`
     #logo {
       display: flex;
       align-items: center;
-      margin-left: 3rem;
+      flex-basis: 33%;
     }
 
     nav {
@@ -106,8 +106,15 @@ const HeaderContainer = styled(Headroom)`
   }
 `;
 
-const LogoImg = styled.img`
-  height: calc(100% - 4rem);
+const LogoImg = styled.div`
+  background-image: url('${props => props.src}');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  margin: 4rem;
+  width: 100%;
+  height: 100%;
+  margin-left: 3rem;
 `;
 
 const MenuIcon = styled.a`
@@ -171,7 +178,7 @@ class Header extends React.Component {
             <FullRow>
               <header>
                 <Link id="logo" to="/">
-                  <LogoImg src={logo} alt="Suomen Tanssipelaajat ry" />
+                  <LogoImg src={logo} />
                 </Link>
                 <MenuIcon onClick={this.handleToggleMenu}>
                   <FaBars />
