@@ -9,7 +9,10 @@ import discordLogo from "../images/discord-logo-purple-trimmed.svg";
 import mckylaLogo from "../images/mckyla-logo.svg";
 
 import FullRow from "./FullRow";
-import { SectionTitle, a } from "./TextContent";
+import TextContent, { SectionTitle, a } from "./TextContent";
+
+const presidentName = "Esa Laitinen";
+const secretaryName = "Meo Ekroos";
 
 const FooterRow = FullRow.extend`
   position: relative;
@@ -61,7 +64,6 @@ const FooterSection = styled.div`
 
   a {
     display: block;
-    margin-bottom: 0.5rem;
   }
 
   ${SectionTitle} {
@@ -69,7 +71,16 @@ const FooterSection = styled.div`
   }
 `;
 
-const Email = ({ email, label }) => <a href={"mailto:" + email}>{email}</a>;
+const Email = ({ email, name, title }) => (
+  <TextContent>
+    <p>
+      {(name || title) && <strong>{name || title}</strong>}
+      {name && title && ", "}
+      {name && title && <span>{title}</span>}
+      <a href={"mailto:" + email}>{email}</a>
+    </p>
+  </TextContent>
+);
 
 const Footer = () => (
   <StaticQuery
@@ -95,10 +106,18 @@ const Footer = () => (
           <FooterSection>
             <SectionTitle>Suomen Tanssipelaajat ry</SectionTitle>
             <div>
-              <Email email="sihteeri@tanssipelit.fi" />
-              <Email email="hallitus@tanssipelit.fi" />
-              <Email email="pj@tanssipelit.fi" />
-              <Email email="admin@tanssipelit.fi" />
+              <Email
+                title="Puheenjohtaja"
+                name={presidentName}
+                email="pj@tanssipelit.fi"
+              />
+              <Email
+                title="Sihteeri"
+                name={secretaryName}
+                email="sihteeri@tanssipelit.fi"
+              />
+              <Email title="Hallitus" email="hallitus@tanssipelit.fi" />
+              <Email title="Ylläpito" email="admin@tanssipelit.fi" />
             </div>
           </FooterSection>
 
