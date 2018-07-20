@@ -10,9 +10,9 @@ import { articleLink } from "../links";
 import { transparentize, lighten, darken } from "polished";
 import { colors } from "../style";
 
-import stpLogo from "../images/stp_logo.png";
+import stpLogo from "../images/stp_logo_slim.png";
 
-export const headerHeight = "9rem";
+export const headerHeight = "5rem";
 
 const headerBackground = transparentize(0.05, colors.purple);
 
@@ -40,7 +40,7 @@ const HeaderContainer = styled(Headroom)`
 
     #logo {
       display: block;
-      margin: 2rem 1rem 2rem 3rem;
+      margin: 1.5rem 1rem 1.5rem 2rem;
       flex-grow: 1;
       background-image: url('${stpLogo}');
       background-size: contain;
@@ -49,7 +49,7 @@ const HeaderContainer = styled(Headroom)`
     }
 
     nav {
-      margin-right: 3rem;
+      margin-right: 2rem;
       display: flex;
       align-items: center;
       font-size: 0.8rem;
@@ -88,7 +88,6 @@ const HeaderContainer = styled(Headroom)`
         background: ${transparentize(-1, darken(0.1, headerBackground))};
         
         ul {
-
           li {
             margin: 0;
             display: block;
