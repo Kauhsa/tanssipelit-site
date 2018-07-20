@@ -9,7 +9,7 @@ import { transparentize } from "polished";
 
 import { newsLink } from "../links";
 
-import { h3 } from "./TextContent";
+import { h3, SectionTitle } from "./TextContent";
 import TextImage from "./TextImage";
 import DateTime from "./DateTime";
 
@@ -47,17 +47,6 @@ const SideContentTime = styled.div`
   font-weight: 400;
   opacity: 0.8;
   margin-top: 0.4rem;
-`;
-
-const Title = styled.h2`
-  opacity: 0.9;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
 `;
 
 const Container = styled.div`
@@ -258,10 +247,10 @@ class News extends React.Component {
                   <HighlightNewsItem node={mostRecentNews.node} />
 
                   <SideContent>
-                    <Title>Tulevat tapahtumat</Title>
+                    <SectionTitle>Tulevat tapahtumat</SectionTitle>
                     <ul>{this.getEvents(allEvents)}</ul>
 
-                    <Title>Muut uutiset</Title>
+                    <SectionTitle>Muut uutiset</SectionTitle>
                     <ul>
                       {otherNews.map(({ node }, i) => (
                         <SideContentItem to={newsLink(node.slug)} key={i}>

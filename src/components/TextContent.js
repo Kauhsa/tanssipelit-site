@@ -1,31 +1,55 @@
 import styled, { css } from "styled-components";
 import { colors } from "../style";
+import { transparentize } from "polished";
 
 const headerBase = css`
   font-family: Lato;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-left: 5px solid ${colors.purple};
-  padding-left: 1rem;
+  letter-spacing: 0.075em;
   line-height: 1.2;
 `;
 
 export const h1 = css`
   ${headerBase};
-  font-size: 2rem;
+  border-left: 5px solid ${colors.purple};
   font-weight: 900;
+  padding-left: 1rem;
+  font-size: 2.5rem;
+  margin: 2.5rem 0;
 `;
 
 export const h2 = css`
   ${headerBase};
   font-weight: 400;
+  border-left-color: ${transparentize(0.4, colors.purple)};
   font-size: 1.5rem;
 `;
 
 export const h3 = css`
   ${headerBase};
   text-transform: none;
+  border-left-color: ${transparentize(0.4, colors.purple)};
   font-size: 1.3rem;
+`;
+
+export const a = css`
+  color: #4f3af6;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const SectionTitle = styled.h3`
+  opacity: 0.9;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 `;
 
 const TextContent = styled.div`
@@ -34,12 +58,7 @@ const TextContent = styled.div`
   }
 
   a {
-    color: #4f3af6;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
+    ${a};
   }
 
   line-height: 1.5;

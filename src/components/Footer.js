@@ -2,47 +2,75 @@ import React from "react";
 import styled from "styled-components";
 
 import FullRow from "./FullRow";
-import Content from "./Content";
-import TextContent from "./TextContent";
 
-import seulLogo from "../images/seul.png";
+import seulLogo from "../images/seul-logo-varillinen-tummalle.png";
+import discordLogo from "../images/discord-logo-white-trimmed.svg";
+import mckylaLogo from "../images/mckyla-logo.svg";
 
-const FooterContent = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
+import { colors } from "../style";
+import { SectionTitle, a } from "./TextContent";
+
+const FooterSection = styled.div`
+  padding: 2rem;
+  color: white;
+  background-color: ${colors.purple};
+  max-width: calc(100% / 3);
+  flex-basis: calc(100% / 3);
 
   img {
-    margin: 2rem;
     max-width: 100%;
-    height: 6rem;
+    padding: 1rem;
+  }
+
+  a {
+    ${a};
+    display: block;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  ${SectionTitle} {
+    margin-bottom: 1.5rem;
   }
 `;
 
-const Email = ({ email, label }) => (
-  <div>
-    <a href={"mailto:" + email}>{email}</a>
-  </div>
-);
+const FooterContent = styled.div``;
+
+const Email = ({ email, label }) => <a href={"mailto:" + email}>{email}</a>;
 
 const Footer = () => (
   <FullRow gray>
-    <FooterContent className="col-xs-12 col-md-6">
-      <Content>
-        <TextContent>
-          <h3>Suomen Tanssipelaajat ry</h3>
-          <Email label="Sihteeri" email="sihteeri@tanssipelit.fi" />
-          <Email label="Hallitus" email="hallitus@tanssipelit.fi" />
-          <Email label="Puheenjohtaja" email="pj@tanssipelit.fi" />
-          <Email label="Ylläpito" email="admin@tanssipelit.fi" />
-        </TextContent>
-      </Content>
-    </FooterContent>
-    <FooterContent className="col-xs-12 col-md-6">
-      <a href="http://seul.fi/" target="_blank" rel="noopener noreferrer">
-        <img src={seulLogo} />
-      </a>
-    </FooterContent>
+    <FooterSection>
+      <SectionTitle>Suomen Tanssipelaajat ry</SectionTitle>
+      <FooterContent>
+        <Email email="sihteeri@tanssipelit.fi" />
+        <Email email="hallitus@tanssipelit.fi" />
+        <Email email="pj@tanssipelit.fi" />
+        <Email email="admin@tanssipelit.fi" />
+      </FooterContent>
+    </FooterSection>
+
+    <FooterSection>
+      <SectionTitle>Yhteisö</SectionTitle>
+      <FooterContent>
+        <a href="https://discord.me/tanssipelaajat">
+          <img src={discordLogo} />
+        </a>
+
+        <a href="https://mckyla.tanssipelit.fi/">
+          <img src={mckylaLogo} />
+        </a>
+      </FooterContent>
+    </FooterSection>
+
+    <FooterSection>
+      <SectionTitle>Yhteistyökumppanit</SectionTitle>
+      <FooterContent>
+        <a href="http://seul.fi/">
+          <img src={seulLogo} />
+        </a>
+      </FooterContent>
+    </FooterSection>
   </FullRow>
 );
 export default Footer;

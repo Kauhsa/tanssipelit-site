@@ -199,6 +199,17 @@ class Header extends React.Component {
                         </Link>
                       </li>
                     ))}
+
+                    <li>
+                      <Link
+                        activeClassName="active"
+                        to="/liity"
+                        exact
+                        onClick={this.handleHideMenu}
+                      >
+                        Liity
+                      </Link>
+                    </li>
                   </ul>
                 </nav>
               </header>
