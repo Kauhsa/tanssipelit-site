@@ -16,7 +16,7 @@
     "gatsby-plugin-sharp": "^2.0.0-beta.2",
     "gatsby-plugin-styled-components": "^3.0.0-beta.1",
     "gatsby-source-contentful": "^2.0.1-beta.8",
-    "gatsby-source-filesystem": "^2.0.1-beta.1",
+    "gatsby-source-filesystem": "^2.0.1-beta.8",
     "gatsby-transformer-remark": "^2.1.1-beta.2",
     "gatsby-transformer-sharp": "^2.1.1-beta.3",
     "lodash-es": "^4.17.10",
