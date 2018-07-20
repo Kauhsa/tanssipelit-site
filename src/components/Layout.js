@@ -26,12 +26,14 @@ injectGlobal`
 export default ({
   children,
   headerAbsolute = false,
-  headerTransparentUnfixed = false
+  headerTransparentUnfixed = false,
+  headerGradientUnfixed = false
 }) => (
   <>
     <Header
       absolute={headerAbsolute}
       transparentUnfixed={headerTransparentUnfixed}
+      gradientUnfixed={headerGradientUnfixed}
     />
     <div>
       <Helmet

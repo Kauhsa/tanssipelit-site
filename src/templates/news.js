@@ -1,7 +1,6 @@
 import { graphql } from "gatsby";
 import React from "react";
 import Helmet from "react-helmet";
-import styled from "styled-components";
 
 import FullRow from "../components/FullRow";
 import Layout from "../components/Layout";
@@ -10,39 +9,25 @@ import TextImage from "../components/TextImage";
 import DateTime from "../components/DateTime";
 import TextContent from "../components/TextContent";
 
-const Summary = styled.div`
-  font-weight: 600;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-`;
-
 export default function Template({ data: { contentfulNews } }) {
   return (
     <>
       <Helmet title={contentfulNews.title} />
       <Layout>
-        <FullRow gray>
-          <div className="col-xs-12">
+        <FullRow>
+          <div>
             <TextImage fluid={contentfulNews.mainImage.fluid}>
               <h1>{contentfulNews.title}</h1>
               <DateTime dateTime={contentfulNews.createdAt} />
             </TextImage>
-          </div>
-        </FullRow>
-        <FullRow>
-          <div className="col-xs-12">
             <Content>
-              <Summary
-                dangerouslySetInnerHTML={{
-                  __html:
-                    contentfulNews.summary.childMarkdownRemark.rawMarkdownBody
-                }}
-              />
-              <TextContent
-                dangerouslySetInnerHTML={{
-                  __html: contentfulNews.content.childMarkdownRemark.html
-                }}
-              />
+              <div>
+                <TextContent
+                  dangerouslySetInnerHTML={{
+                    __html: contentfulNews.content.childMarkdownRemark.html
+                  }}
+                />
+              </div>
             </Content>
           </div>
         </FullRow>
@@ -69,7 +54,7 @@ export const pageQuery = graphql`
         }
       }
       mainImage {
-        fluid(maxWidth: 1000, maxHeight: 600) {
+        fluid(maxWidth: 1000, maxHeight: 500) {
           ...GatsbyContentfulFluid
         }
       }

@@ -5,7 +5,7 @@ import { transparentize } from "polished";
 const headerBase = css`
   font-family: Lato;
   text-transform: uppercase;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.05em;
   line-height: 1.2;
 `;
 
@@ -14,8 +14,8 @@ export const h1 = css`
   border-left: 5px solid ${colors.purple};
   font-weight: 900;
   padding-left: 1rem;
-  font-size: 2.5rem;
-  margin: 2.5rem 0;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
 `;
 
 export const h2 = css`

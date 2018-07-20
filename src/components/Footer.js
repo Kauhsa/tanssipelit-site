@@ -11,7 +11,6 @@ import FullRow from "./FullRow";
 import { SectionTitle, a } from "./TextContent";
 
 const FooterRow = FullRow.extend`
-  margin-top: 4rem;
   position: relative;
   padding: 1rem;
   color: ${colors.purple};

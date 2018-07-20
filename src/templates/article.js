@@ -11,16 +11,14 @@ export default function Template({ data: { contentfulArticle } }) {
   return (
     <Layout>
       <FullRow>
-        <div className="col-xs-12">
-          <Content>
-            <Helmet title={contentfulArticle.title} />
-            <TextContent
-              dangerouslySetInnerHTML={{
-                __html: contentfulArticle.content.childMarkdownRemark.html
-              }}
-            />
-          </Content>
-        </div>
+        <Content>
+          <Helmet title={contentfulArticle.title} />
+          <TextContent
+            dangerouslySetInnerHTML={{
+              __html: contentfulArticle.content.childMarkdownRemark.html
+            }}
+          />
+        </Content>
       </FullRow>
     </Layout>
   );

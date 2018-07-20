@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
-import { transparentize } from "polished";
+import { transparentize, darken, rgba } from "polished";
 import { colors } from "../style";
 
 import stpLogo from "../images/stp_logo.png";
@@ -22,13 +22,19 @@ const HeaderContainer = styled(Headroom)`
   left: 0;
   right: 0;
 
-  ${props =>
-    props.transparentUnfixed &&
-    css`
-      .headroom--unfixed header {
-        background-color: rgba(16, 0, 65, 0);
-      }
-    `};
+  .headroom--unfixed header {
+    ${props =>
+      props.transparentUnfixed &&
+      css`
+        background-color: ${transparentize(1, colors.purple)}};
+      `};
+
+    ${props =>
+      props.gradientUnfixed &&
+      css`
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+      `};
+  }
 
   header {
     width: 100%;
@@ -167,6 +173,7 @@ class Header extends React.Component {
           <HeaderContainer
             absolute={this.props.absolute}
             transparentUnfixed={this.props.transparentUnfixed}
+            gradientUnfixed={this.props.gradientUnfixed}
           >
             <FullRow>
               <header>
