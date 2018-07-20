@@ -6,11 +6,11 @@ import styled, { css } from "styled-components";
 
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
-import logo from "../images/stp_logo.png";
 import { transparentize } from "polished";
 import { colors } from "../style";
 
-export const headerHeight = "8rem";
+import stpLogo from "../images/stp_logo.png";
+export const headerHeight = "9rem";
 
 const HeaderContainer = styled(Headroom)`
   ${props =>
@@ -36,15 +36,19 @@ const HeaderContainer = styled(Headroom)`
     height: ${headerHeight};
     transition: background-color 250ms;
     background-color: ${transparentize(0.03, colors.purple)};
+    justify-content: stretch;
 
     #logo {
-      display: flex;
-      align-items: center;
-      flex-basis: 33%;
+      display: block;
+      margin: 2rem 3rem;
+      flex-grow: 1;
+      background-image: url('${stpLogo}');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 0 center;
     }
 
     nav {
-      margin-left: auto;
       margin-right: 3rem;
       display: flex;
       align-items: center;
@@ -104,17 +108,6 @@ const HeaderContainer = styled(Headroom)`
       }
     }
   }
-`;
-
-const LogoImg = styled.div`
-  background-image: url('${props => props.src}');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  margin: 4rem;
-  width: 100%;
-  height: 100%;
-  margin-left: 3rem;
 `;
 
 const MenuIcon = styled.a`
@@ -177,9 +170,7 @@ class Header extends React.Component {
           >
             <FullRow>
               <header>
-                <Link id="logo" to="/">
-                  <LogoImg src={logo} />
-                </Link>
+                <Link id="logo" to="/" />
                 <MenuIcon onClick={this.handleToggleMenu}>
                   <FaBars />
                 </MenuIcon>
