@@ -16,6 +16,10 @@ const FooterRow = FullRow.extend`
   padding: 1rem;
   color: ${colors.purple};
 
+  ${media.lessThan("medium")`
+    border-top: 5px solid rgba(0, 0, 0, 0.01);
+  `};
+
   a {
     ${a};
     color: ${colors.purple};

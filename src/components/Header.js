@@ -7,7 +7,7 @@ import media from "styled-media-query";
 
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
-import { transparentize, lighten } from "polished";
+import { transparentize, lighten, darken } from "polished";
 import { colors } from "../style";
 
 import stpLogo from "../images/stp_logo.png";
@@ -85,11 +85,9 @@ const HeaderContainer = styled(Headroom)`
         position: fixed;
         top: ${headerHeight};
         width: 100%;
+        background: ${transparentize(-1, darken(0.1, headerBackground))};
         
         ul {
-          background-color: ${headerBackground};
-          border-top: 1px solid #544585;
-          border-bottom: none;
 
           li {
             margin: 0;
