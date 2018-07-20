@@ -2,7 +2,7 @@ import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import Headroom from "react-headroom";
 import FaBars from "react-icons/lib/fa/bars";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
@@ -11,13 +11,22 @@ import { transparentize } from "polished";
 import { colors } from "../style";
 
 const HeaderContainer = styled(Headroom)`
-  position: absolute;
+  ${props =>
+    props.absolute &&
+    css`
+      position: absolute;
+    `};
+
   left: 0;
   right: 0;
 
-  .headroom--unfixed header {
-    background-color: rgba(16, 0, 65, 0);
-  }
+  ${props =>
+    props.transparentUnfixed &&
+    css`
+      .headroom--unfixed header {
+        background-color: rgba(16, 0, 65, 0);
+      }
+    `};
 
   header {
     width: 100%;
@@ -149,7 +158,10 @@ class Header extends React.Component {
           }
         `}
         render={data => (
-          <HeaderContainer>
+          <HeaderContainer
+            absolute={this.props.absolute}
+            transparentUnfixed={this.props.transparentUnfixed}
+          >
             <FullRow>
               <header>
                 <Link id="logo" to="/">

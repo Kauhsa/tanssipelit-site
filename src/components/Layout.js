@@ -23,9 +23,16 @@ injectGlobal`
   }
 `;
 
-export default ({ children }) => (
+export default ({
+  children,
+  headerAbsolute = false,
+  headerTransparentUnfixed = false
+}) => (
   <>
-    <Header />
+    <Header
+      absolute={headerAbsolute}
+      transparentUnfixed={headerTransparentUnfixed}
+    />
     <div>
       <Helmet
         titleTemplate={`%s | Tanssipelit.fi`}

@@ -8,7 +8,7 @@ import Content from "../components/Content";
 import TextContent from "../components/TextContent";
 
 const Index = ({ data }) => (
-  <Layout>
+  <Layout headerAbsolute={true} headerTransparentUnfixed={true}>
     <IndexHeader />
     <FullRow>
       <div className="col-xs-12">
