@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
-import { transparentize, darken, rgba } from "polished";
+import { transparentize } from "polished";
 import { colors } from "../style";
 
 import stpLogo from "../images/stp_logo.png";
@@ -23,17 +23,7 @@ const HeaderContainer = styled(Headroom)`
   right: 0;
 
   .headroom--unfixed header {
-    ${props =>
-      props.transparentUnfixed &&
-      css`
-        background-color: ${transparentize(1, colors.purple)}};
-      `};
-
-    ${props =>
-      props.gradientUnfixed &&
-      css`
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-      `};
+    background-color: ${transparentize(1, colors.purple)}};
   }
 
   header {
@@ -41,7 +31,7 @@ const HeaderContainer = styled(Headroom)`
     display: flex;
     height: ${headerHeight};
     transition: background-color 250ms;
-    background-color: ${transparentize(0.03, colors.purple)};
+    background-color: ${transparentize(0.05, colors.purple)};
     justify-content: stretch;
 
     #logo {
@@ -170,11 +160,7 @@ class Header extends React.Component {
           }
         `}
         render={data => (
-          <HeaderContainer
-            absolute={this.props.absolute}
-            transparentUnfixed={this.props.transparentUnfixed}
-            gradientUnfixed={this.props.gradientUnfixed}
-          >
+          <HeaderContainer absolute={this.props.absolute}>
             <FullRow>
               <header>
                 <Link id="logo" to="/" />

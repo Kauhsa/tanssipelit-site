@@ -7,6 +7,8 @@ import Footer from "./Footer";
 import "css-wipe/index.css";
 import "flexboxgrid/css/flexboxgrid.min.css";
 import "./index.css";
+import PurpleContainer from "./PurpleContainer";
+import FullRow from "./FullRow";
 
 injectGlobal`
   :root {
@@ -23,30 +25,27 @@ injectGlobal`
   }
 `;
 
-export default ({
-  children,
-  headerAbsolute = false,
-  headerTransparentUnfixed = false,
-  headerGradientUnfixed = false
-}) => (
-  <>
-    <Header
-      absolute={headerAbsolute}
-      transparentUnfixed={headerTransparentUnfixed}
-      gradientUnfixed={headerGradientUnfixed}
-    />
-    <div>
-      <Helmet
-        titleTemplate={`%s | Tanssipelit.fi`}
-        defaultTitle={"Tanssipelit.fi"}
-      >
-        <link
-          href="https://fonts.googleapis.com/css?family=Lato:400,700,900,400i"
-          rel="stylesheet"
-        />
-      </Helmet>
-      {children}
-      <Footer />
-    </div>
-  </>
-);
+export default ({ children, headerAbsolute = false }) => {
+  const HeaderWrapper = headerAbsolute ? React.Fragment : PurpleContainer;
+
+  return (
+    <>
+      <HeaderWrapper>
+        <Header absolute={headerAbsolute} />
+      </HeaderWrapper>
+      <div>
+        <Helmet
+          titleTemplate={`%s | Tanssipelit.fi`}
+          defaultTitle={"Tanssipelit.fi"}
+        >
+          <link
+            href="https://fonts.googleapis.com/css?family=Lato:400,700,900,400i"
+            rel="stylesheet"
+          />
+        </Helmet>
+        {children}
+        <Footer />
+      </div>
+    </>
+  );
+};

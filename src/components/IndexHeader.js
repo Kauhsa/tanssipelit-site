@@ -5,7 +5,6 @@ import { times, take, sortBy } from "lodash-es";
 import isAfter from "date-fns/is_after";
 import startOfDay from "date-fns/start_of_day";
 import getTime from "date-fns/get_time";
-import { transparentize } from "polished";
 
 import { newsLink } from "../links";
 
@@ -14,14 +13,8 @@ import TextImage from "./TextImage";
 import DateTime from "./DateTime";
 
 import FullRow from "./FullRow";
-import { colors } from "../style";
 import { headerHeight } from "./Header";
-
-const BackgroundContainer = styled.div`
-  background-image: url('${props => props.backgroundImage}');
-  background-position: center;
-  background-size: cover;
-`;
+import PurpleContainer from "./PurpleContainer";
 
 const NewsContainer = styled.div`
   a {
@@ -50,40 +43,17 @@ const SideContentTime = styled.div`
   margin-top: 0.4rem;
 `;
 
-const Container = styled.div`
-  background: ${transparentize(0.03, colors.purple)};
+const Container = PurpleContainer.extend`
   padding: ${headerHeight} 1.5rem 0 0;
-  position: relative;
   display: flex;
   flex-basis: 100%;
-  color: white;
 
   @media only screen and (max-width: 48em) {
     display: block;
   }
 
-  &::after,
-  &::before {
-    content: "";
-    position: absolute;
-    display: block;
-    background: rgba(255, 255, 255, 0.97);
-    top: 0;
-    height: 100%;
-    width: 100vw;
-  }
-
-  &::after {
-    right: 100%;
-  }
-
-  &::before {
-    left: 100%;
-  }
-
   ${NewsContainer} {
     padding-right: 1.5rem;
-
     flex-basis: 67%;
 
     @media only screen and (max-width: 48em) {
@@ -220,19 +190,6 @@ class News extends React.Component {
                 }
               }
             }
-
-            background: file(relativePath: { eq: "background.png" }) {
-              childImageSharp {
-                fixed(
-                  width: 1500
-                  quality: 80
-                  toFormat: JPG
-                  jpegProgressive: true
-                ) {
-                  src
-                }
-              }
-            }
           }
         `}
         render={data => {
@@ -240,32 +197,26 @@ class News extends React.Component {
           const allEvents = data.allContentfulCalendarEntry.edges;
 
           return (
-            <BackgroundContainer
-              backgroundImage={data.background.childImageSharp.fixed.src}
-            >
-              <FullRow>
-                <Container>
-                  <HighlightNewsItem node={mostRecentNews.node} />
+            <Container>
+              <HighlightNewsItem node={mostRecentNews.node} />
 
-                  <SideContent>
-                    <SectionTitle>Tulevat tapahtumat</SectionTitle>
-                    <ul>{this.getEvents(allEvents)}</ul>
+              <SideContent>
+                <SectionTitle>Tulevat tapahtumat</SectionTitle>
+                <ul>{this.getEvents(allEvents)}</ul>
 
-                    <SectionTitle>Muut uutiset</SectionTitle>
-                    <ul>
-                      {otherNews.map(({ node }, i) => (
-                        <SideContentItem to={newsLink(node.slug)} key={i}>
-                          <h3>{node.title}</h3>
-                          <SideContentTime>
-                            <DateTime dateTime={node.createdAt} />
-                          </SideContentTime>
-                        </SideContentItem>
-                      ))}
-                    </ul>
-                  </SideContent>
-                </Container>
-              </FullRow>
-            </BackgroundContainer>
+                <SectionTitle>Muut uutiset</SectionTitle>
+                <ul>
+                  {otherNews.map(({ node }, i) => (
+                    <SideContentItem to={newsLink(node.slug)} key={i}>
+                      <h3>{node.title}</h3>
+                      <SideContentTime>
+                        <DateTime dateTime={node.createdAt} />
+                      </SideContentTime>
+                    </SideContentItem>
+                  ))}
+                </ul>
+              </SideContent>
+            </Container>
           );
         }}
       />
