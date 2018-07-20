@@ -10,6 +10,8 @@ import logo from "../images/stp_logo.png";
 import { transparentize } from "polished";
 import { colors } from "../style";
 
+export const headerHeight = "8rem";
+
 const HeaderContainer = styled(Headroom)`
   ${props =>
     props.absolute &&
@@ -31,7 +33,7 @@ const HeaderContainer = styled(Headroom)`
   header {
     width: 100%;
     display: flex;
-    height: 6rem;
+    height: ${headerHeight};
     transition: background-color 250ms;
     background-color: ${transparentize(0.03, colors.purple)};
 
@@ -104,6 +106,10 @@ const HeaderContainer = styled(Headroom)`
   }
 `;
 
+const LogoImg = styled.img`
+  height: calc(100% - 4rem);
+`;
+
 const MenuIcon = styled.a`
   display: none;
   float: right;
@@ -165,7 +171,7 @@ class Header extends React.Component {
             <FullRow>
               <header>
                 <Link id="logo" to="/">
-                  <img src={logo} alt="logo" id="logo-img" />
+                  <LogoImg src={logo} alt="Suomen Tanssipelaajat ry" />
                 </Link>
                 <MenuIcon onClick={this.handleToggleMenu}>
                   <FaBars />

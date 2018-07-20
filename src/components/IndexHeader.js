@@ -15,6 +15,7 @@ import DateTime from "./DateTime";
 
 import FullRow from "./FullRow";
 import { colors } from "../style";
+import { headerHeight } from "./Header";
 
 const BackgroundContainer = styled.div`
   background-image: url('${props => props.backgroundImage}');
@@ -51,7 +52,7 @@ const SideContentTime = styled.div`
 
 const Container = styled.div`
   background: ${transparentize(0.03, colors.purple)};
-  padding: 6rem 1.5rem 0 0;
+  padding: ${headerHeight} 1.5rem 0 0;
   position: relative;
   display: flex;
   flex-basis: 100%;
