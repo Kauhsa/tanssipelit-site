@@ -21,7 +21,6 @@ const FooterContent = styled.div`
 
 const Email = ({ email, label }) => (
   <div>
-    <strong>{label}: </strong>
     <a href={"mailto:" + email}>{email}</a>
   </div>
 );

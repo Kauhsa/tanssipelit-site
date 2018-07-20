@@ -1,22 +1,30 @@
 import styled, { css } from "styled-components";
+import { colors } from "../style";
 
 const headerBase = css`
   font-family: Lato;
-  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-left: 5px solid ${colors.purple};
+  padding-left: 1rem;
+  line-height: 1.2;
 `;
 
 export const h1 = css`
   ${headerBase};
-  font-size: 3rem;
+  font-size: 2rem;
+  font-weight: 900;
 `;
 
 export const h2 = css`
   ${headerBase};
-  font-size: 2rem;
+  font-weight: 400;
+  font-size: 1.5rem;
 `;
 
 export const h3 = css`
   ${headerBase};
+  text-transform: none;
   font-size: 1.3rem;
 `;
 
