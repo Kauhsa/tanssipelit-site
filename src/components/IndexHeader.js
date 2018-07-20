@@ -12,12 +12,10 @@ import { h3 } from "./TextContent";
 import TextImage from "./TextImage";
 import DateTime from "./DateTime";
 
-import backgroundImage from "../images/kuva.png";
-
 import FullRow from "./FullRow";
 
 const BackgroundContainer = styled.div`
-  background-image: url(${backgroundImage});
+  background-image: url('${props => props.backgroundImage}');
   background-position: center;
   background-size: cover;
 `;
@@ -25,6 +23,7 @@ const BackgroundContainer = styled.div`
 const NewsContainer = styled.div`
   a {
     display: block;
+    height: 100%;
   }
 `;
 
@@ -76,7 +75,7 @@ const Container = styled.div`
     content: "";
     position: absolute;
     display: block;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.97);
     top: 0;
     height: 100%;
     width: 100vw;
@@ -229,6 +228,19 @@ class News extends React.Component {
                 }
               }
             }
+
+            background: file(relativePath: { eq: "background.png" }) {
+              childImageSharp {
+                fixed(
+                  width: 1500
+                  quality: 80
+                  toFormat: JPG
+                  jpegProgressive: true
+                ) {
+                  src
+                }
+              }
+            }
           }
         `}
         render={data => {
@@ -236,7 +248,9 @@ class News extends React.Component {
           const allEvents = data.allContentfulCalendarEntry.edges;
 
           return (
-            <BackgroundContainer>
+            <BackgroundContainer
+              backgroundImage={data.background.childImageSharp.fixed.src}
+            >
               <FullRow>
                 <Container>
                   <HighlightNewsItem node={mostRecentNews.node} />
