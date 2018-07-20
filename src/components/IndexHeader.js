@@ -5,6 +5,7 @@ import { times, take, sortBy } from "lodash-es";
 import isAfter from "date-fns/is_after";
 import startOfDay from "date-fns/start_of_day";
 import getTime from "date-fns/get_time";
+import { transparentize } from "polished";
 
 import { newsLink } from "../links";
 
@@ -13,6 +14,7 @@ import TextImage from "./TextImage";
 import DateTime from "./DateTime";
 
 import FullRow from "./FullRow";
+import { colors } from "../style";
 
 const BackgroundContainer = styled.div`
   background-image: url('${props => props.backgroundImage}');
@@ -59,7 +61,7 @@ const Title = styled.h2`
 `;
 
 const Container = styled.div`
-  background: rgba(16, 0, 65, 0.95);
+  background: ${transparentize(0.03, colors.purple)};
   padding: 6rem 1.5rem 0 0;
   position: relative;
   display: flex;

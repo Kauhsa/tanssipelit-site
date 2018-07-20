@@ -7,6 +7,8 @@ import styled from "styled-components";
 import FullRow from "./FullRow";
 import { articleLink } from "../links";
 import logo from "../images/stp_logo.png";
+import { transparentize } from "polished";
+import { colors } from "../style";
 
 const HeaderContainer = styled(Headroom)`
   position: absolute;
@@ -22,7 +24,7 @@ const HeaderContainer = styled(Headroom)`
     display: flex;
     height: 6rem;
     transition: background-color 250ms;
-    background-color: rgba(16, 0, 65, 0.95);
+    background-color: ${transparentize(0.03, colors.purple)};
 
     #logo {
       display: flex;
