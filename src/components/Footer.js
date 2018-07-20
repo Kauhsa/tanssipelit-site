@@ -45,11 +45,14 @@ const FooterContainer = styled.div`
   ${media.greaterThan("medium")`
     display: flex;
   `};
+
+  width: 100%;
+  justify-content: space-between;
 `;
 
 const FooterSection = styled.div`
-  padding: 2rem;
-  flex-basis: calc(100% / 3);
+  padding: 1rem;
+  flex-basis: calc(100% / 3 - 1rem);
 
   img {
     max-width: 100%;

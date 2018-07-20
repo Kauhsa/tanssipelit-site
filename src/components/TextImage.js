@@ -43,7 +43,7 @@ const Text = styled.div`
   color: white;
 
   ${media.lessThan("medium")`
-    padding: 2rem 3rem;
+    padding: 2rem;
   `}
 
   h1,

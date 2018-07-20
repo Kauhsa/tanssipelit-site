@@ -50,6 +50,7 @@ const Container = PurpleContainer.extend`
 
   ${media.lessThan("medium")`
     display: block;
+    padding-right: 0;
   `};
 
   ${NewsContainer} {
@@ -59,16 +60,12 @@ const Container = PurpleContainer.extend`
     ${media.lessThan("medium")`
       padding: 0;
       padding-bottom: 1.5rem;
-
-      a {
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
-      }
+      width: 100%;
     `};
   }
 
   ${SideContent} {
-    padding: 1.5rem;
+    padding: 2rem;
     flex-basis: 33%;
   }
 `;
