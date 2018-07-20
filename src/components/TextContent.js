@@ -47,7 +47,7 @@ export const SectionTitle = styled.h3`
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid currentcolor;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 `;
