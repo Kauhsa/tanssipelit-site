@@ -85,7 +85,7 @@ const HeaderContainer = styled(Headroom)`
         position: fixed;
         top: ${headerHeight};
         width: 100%;
-        background: ${transparentize(-1, darken(0.1, headerBackground))};
+        background: ${transparentize(-1, darken(0.01, headerBackground))};
         
         ul {
           li {
