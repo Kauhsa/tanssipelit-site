@@ -91,7 +91,7 @@ const Footer = () => (
           childImageSharp {
             fixed(
               width: 1500
-              quality: 80
+              quality: 60
               toFormat: JPG
               jpegProgressive: true
             ) {
