@@ -18,7 +18,7 @@ export const en = {
   finnishDanceGamersAssociation: "Finnish Dance Gamers' Association",
   community: "Community",
   partners: "Partners",
-  president: "President",
+  president: "Chair",
   secretary: "Secretary",
   board: "Board",
   admin: "Administrator"
