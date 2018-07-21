@@ -8,10 +8,11 @@ import Content from "../components/Content";
 import TextImage from "../components/TextImage";
 import DateTime from "../components/DateTime";
 import TextContent from "../components/TextContent";
+import Intl from "../components/Intl";
 
 export default function Template({ data: { contentfulNews } }) {
   return (
-    <>
+    <Intl locale={contentfulNews.node_locale}>
       <Helmet title={contentfulNews.title} />
       <Layout>
         <FullRow>
@@ -32,13 +33,14 @@ export default function Template({ data: { contentfulNews } }) {
           </div>
         </FullRow>
       </Layout>
-    </>
+    </Intl>
   );
 }
 
 export const pageQuery = graphql`
   query NewsPostById($id: String!) {
     contentfulNews(id: { eq: $id }) {
+      node_locale
       id
       title
       slug

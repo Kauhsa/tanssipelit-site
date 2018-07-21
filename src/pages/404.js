@@ -1,13 +1,17 @@
 import React from "react";
 import Layout from "../components/Layout";
+import Intl from "../components/Intl";
+import TextContent from "../components/TextContent";
 
 const NotFoundPage = () => (
-  <Layout>
-    <div>
-      <h1>NOT FOUND</h1>
-      <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-    </div>
-  </Layout>
+  <Intl locale="fi">
+    <Layout>
+      <TextContent>
+        <h1>Sivua ei löytynyt!</h1>
+        <p>:(</p>
+      </TextContent>
+    </Layout>
+  </Intl>
 );
 
 export default NotFoundPage;

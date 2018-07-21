@@ -3,7 +3,7 @@ import IndexPage from "../templates/IndexPage";
 import Intl from "../components/Intl";
 
 const Index = () => (
-  <Intl locale="fi">
+  <Intl locale="en">
     <IndexPage />
   </Intl>
 );

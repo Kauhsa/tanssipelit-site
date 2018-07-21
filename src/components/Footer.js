@@ -10,6 +10,7 @@ import mckylaLogo from "../images/mckyla-logo.svg";
 
 import FullRow from "./FullRow";
 import TextContent, { SectionTitle, a } from "./TextContent";
+import { FormattedMessage } from "react-intl";
 
 const presidentName = "Esa Laitinen";
 const secretaryName = "Meo Ekroos";
@@ -104,25 +105,35 @@ const Footer = () => (
       <FooterRow background={data.background.childImageSharp.fixed.src}>
         <FooterContainer>
           <FooterSection>
-            <SectionTitle>Suomen Tanssipelaajat ry</SectionTitle>
+            <SectionTitle>
+              <FormattedMessage id="finnishDanceGamersAssociation" />
+            </SectionTitle>
             <div>
               <Email
-                title="Puheenjohtaja"
+                title={<FormattedMessage id="president" />}
                 name={presidentName}
                 email="pj@tanssipelit.fi"
               />
               <Email
-                title="Sihteeri"
+                title={<FormattedMessage id="secretary" />}
                 name={secretaryName}
                 email="sihteeri@tanssipelit.fi"
               />
-              <Email title="Hallitus" email="hallitus@tanssipelit.fi" />
-              <Email title="Ylläpito" email="admin@tanssipelit.fi" />
+              <Email
+                title={<FormattedMessage id="board" />}
+                email="hallitus@tanssipelit.fi"
+              />
+              <Email
+                title={<FormattedMessage id="admin" />}
+                email="admin@tanssipelit.fi"
+              />
             </div>
           </FooterSection>
 
           <FooterSection>
-            <SectionTitle>Yhteisö</SectionTitle>
+            <SectionTitle>
+              <FormattedMessage id="community" />
+            </SectionTitle>
             <div>
               <a href="https://discord.me/tanssipelaajat">
                 <img src={discordLogo} />
@@ -135,7 +146,9 @@ const Footer = () => (
           </FooterSection>
 
           <FooterSection>
-            <SectionTitle>Yhteistyökumppanit</SectionTitle>
+            <SectionTitle>
+              <FormattedMessage id="partners" />
+            </SectionTitle>
             <div>
               <a href="http://seul.fi/">
                 <img src={seulLogo} />

@@ -15,6 +15,8 @@ import DateTime from "./DateTime";
 
 import { headerHeight } from "./Header";
 import PurpleContainer from "./PurpleContainer";
+import { injectIntl, FormattedMessage } from "react-intl";
+import { nodesWithLocale } from "./Intl";
 
 const NewsContainer = styled.div`
   a {
@@ -71,10 +73,10 @@ const Container = PurpleContainer.extend`
 `;
 
 const HighlightNewsItem = ({
-  node: { summary, title, slug, mainImage, createdAt }
+  node: { summary, title, slug, mainImage, createdAt, node_locale: nodeLocale }
 }) => (
   <NewsContainer>
-    <Link to={newsLink(slug)}>
+    <Link to={newsLink(slug, nodeLocale)}>
       <TextImage fluid={mainImage.fluid}>
         <h2>{title}</h2>
         <DateTime dateTime={createdAt} />
@@ -102,7 +104,7 @@ const SideContentItem = styled(({ to, className, children }) => (
   }
 `;
 
-class News extends React.Component {
+class IndexHeader extends React.Component {
   state = {
     date: null
   };
@@ -137,8 +139,23 @@ class News extends React.Component {
       <SideContentItem key={i}>
         <h3>{event.eventName}</h3>
         <SideContentTime>
-          <DateTime dateTime={event.start} format="dd D.M." />
-          {event.end && <DateTime dateTime={event.end} format="–dd D.M." />}
+          <DateTime
+            dateTime={event.start}
+            options={{ day: "numeric", month: "numeric", weekday: "short" }}
+          />
+          {event.end && (
+            <>
+              –
+              <DateTime
+                dateTime={event.end}
+                options={{
+                  day: "numeric",
+                  month: "numeric",
+                  weekday: "short"
+                }}
+              />
+            </>
+          )}
         </SideContentTime>
       </SideContentItem>
     ));
@@ -155,6 +172,7 @@ class News extends React.Component {
             ) {
               edges {
                 node {
+                  node_locale
                   id
                   title
                   slug
@@ -176,6 +194,7 @@ class News extends React.Component {
             allContentfulCalendarEntry {
               edges {
                 node {
+                  node_locale
                   id
                   eventName
                   start
@@ -186,21 +205,39 @@ class News extends React.Component {
           }
         `}
         render={data => {
-          const [mostRecentNews, ...otherNews] = data.allContentfulNews.edges;
-          const allEvents = data.allContentfulCalendarEntry.edges;
+          const {
+            intl: { locale }
+          } = this.props;
+
+          const [mostRecentNews, ...otherNews] = nodesWithLocale(
+            locale,
+            data.allContentfulNews.edges
+          );
+
+          const allEvents = nodesWithLocale(
+            locale,
+            data.allContentfulCalendarEntry.edges
+          );
 
           return (
             <Container>
               <HighlightNewsItem node={mostRecentNews.node} />
 
               <SideContent>
-                <SectionTitle>Tulevat tapahtumat</SectionTitle>
+                <SectionTitle>
+                  <FormattedMessage id="upcomingEvents" />
+                </SectionTitle>
                 <ul>{this.getEvents(allEvents)}</ul>
 
-                <SectionTitle>Muut uutiset</SectionTitle>
+                <SectionTitle>
+                  <FormattedMessage id="otherNews" />
+                </SectionTitle>
                 <ul>
                   {otherNews.map(({ node }, i) => (
-                    <SideContentItem to={newsLink(node.slug)} key={i}>
+                    <SideContentItem
+                      to={newsLink(node.slug, node.node_locale)}
+                      key={i}
+                    >
                       <h3>{node.title}</h3>
                       <SideContentTime>
                         <DateTime dateTime={node.createdAt} />
@@ -217,4 +254,4 @@ class News extends React.Component {
   }
 }
 
-export default News;
+export default injectIntl(IndexHeader);

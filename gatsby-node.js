@@ -9,6 +9,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
           node {
             id
             slug
+            node_locale
           }
         }
       }
@@ -18,6 +19,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
           node {
             id
             slug
+            node_locale
           }
         }
       }
@@ -30,7 +32,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
 
   data.allContentfulNews.edges.forEach(({ node }) => {
     createPage({
-      path: newsLink(node.slug),
+      path: newsLink(node.slug, node.node_locale),
       component: path.resolve(`src/templates/news.js`),
       context: {
         id: node.id
@@ -40,7 +42,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
 
   data.allContentfulArticle.edges.forEach(({ node }) => {
     createPage({
-      path: articleLink(node.slug),
+      path: articleLink(node.slug, node.node_locale),
       component: path.resolve(`src/templates/article.js`),
       context: {
         id: node.id

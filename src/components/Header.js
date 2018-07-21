@@ -4,13 +4,18 @@ import Headroom from "react-headroom";
 import FaBars from "react-icons/lib/fa/bars";
 import styled, { css } from "styled-components";
 import media from "styled-media-query";
+import { injectIntl, FormattedMessage } from "react-intl";
+import { transparentize, lighten, darken } from "polished";
 
 import FullRow from "./FullRow";
-import { articleLink } from "../links";
-import { transparentize, lighten, darken } from "polished";
-import { colors } from "../style";
+import { nodesWithLocale } from "./Intl";
 
+import { articleLink } from "../links";
+import { colors } from "../style";
 import stpLogo from "../images/stp_logo_slim.png";
+
+import fiFlag from "../images/fi.svg";
+import enFlag from "../images/gb.svg";
 
 export const headerHeight = "5rem";
 
@@ -131,6 +136,24 @@ const MenuIcon = styled.a`
   }
 `;
 
+const FlagContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+  user-select: none;
+`;
+
+const Flag = styled.img`
+  border-radius: 0.1rem;
+  width: 2rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+`;
+
+const defaultLocaleUrls = {
+  fi: "/",
+  en: "/en"
+};
+
 // this CAN'T be PureComponent, or activeClassName in links won't work
 class Header extends React.Component {
   state = {
@@ -151,76 +174,106 @@ class Header extends React.Component {
     });
   };
 
+  getFrontPageUrl = () => (this.props.intl.locale === "fi" ? "/" : "/en");
+
   render() {
     return (
       <StaticQuery
         query={graphql`
           query LayoutQuery {
-            contentfulSettings {
-              navigation {
-                id
-                title
-                slug
+            allContentfulSettings {
+              edges {
+                node {
+                  node_locale
+                  navigation {
+                    id
+                    title
+                    slug
+                    node_locale
+                  }
+                }
               }
             }
           }
         `}
-        render={data => (
-          <HeaderContainer absolute={this.props.absolute}>
-            <FullRow>
-              <header>
-                <Link id="logo" to="/" />
-                <MenuIcon onClick={this.handleToggleMenu}>
-                  <FaBars />
-                </MenuIcon>
-                <nav
-                  className={
-                    this.state.mobileMenuOpen ? undefined : "hidden-mobile"
-                  }
-                >
-                  <ul>
-                    <li>
-                      <Link
-                        activeClassName="active"
-                        to="/"
-                        exact
-                        onClick={this.handleHideMenu}
-                      >
-                        Etusivu
-                      </Link>
-                    </li>
+        render={data => {
+          const locale = this.props.intl.locale;
 
-                    {data.contentfulSettings.navigation.map(link => (
-                      <li key={link.id}>
+          const navigation = nodesWithLocale(
+            locale,
+            data.allContentfulSettings.edges
+          )[0].node.navigation;
+
+          const otherLocale = locale === "fi" ? "en" : "fi";
+          const flagImage = otherLocale === "fi" ? fiFlag : enFlag;
+          const flagUrl =
+            (this.props.localeUrls && this.props.localeUrls[otherLocale]) ||
+            defaultLocaleUrls[otherLocale];
+
+          return (
+            <HeaderContainer absolute={this.props.absolute}>
+              <FullRow>
+                <header>
+                  <Link id="logo" to={this.getFrontPageUrl()} />
+                  <MenuIcon onClick={this.handleToggleMenu}>
+                    <FaBars />
+                  </MenuIcon>
+                  <nav
+                    className={
+                      this.state.mobileMenuOpen ? undefined : "hidden-mobile"
+                    }
+                  >
+                    <ul>
+                      <li>
                         <Link
                           activeClassName="active"
-                          to={articleLink(link.slug)}
+                          to={this.getFrontPageUrl()}
+                          exact
                           onClick={this.handleHideMenu}
                         >
-                          {link.title}
+                          <FormattedMessage id="frontPage" />
                         </Link>
                       </li>
-                    ))}
 
-                    <li>
-                      <Link
-                        activeClassName="active"
-                        to="/liity"
-                        exact
-                        onClick={this.handleHideMenu}
-                      >
-                        Liity
-                      </Link>
-                    </li>
-                  </ul>
-                </nav>
-              </header>
-            </FullRow>
-          </HeaderContainer>
-        )}
+                      {navigation.map(link => (
+                        <li key={link.id}>
+                          <Link
+                            activeClassName="active"
+                            to={articleLink(link.slug, link.node_locale)}
+                            onClick={this.handleHideMenu}
+                          >
+                            {link.title}
+                          </Link>
+                        </li>
+                      ))}
+
+                      {this.props.intl.locale === "fi" && (
+                        <li>
+                          <Link
+                            activeClassName="active"
+                            to="/liity"
+                            exact
+                            onClick={this.handleHideMenu}
+                          >
+                            Liity
+                          </Link>
+                        </li>
+                      )}
+                    </ul>
+                  </nav>
+                  <FlagContainer>
+                    <Link to={flagUrl}>
+                      <Flag src={flagImage} />
+                    </Link>
+                  </FlagContainer>
+                </header>
+              </FullRow>
+            </HeaderContainer>
+          );
+        }}
       />
     );
   }
 }
 
-export default Header;
+export default injectIntl(Header);
