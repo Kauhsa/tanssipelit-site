@@ -14,7 +14,7 @@ export const h1 = css`
   font-weight: 900;
   padding-left: 1rem;
   font-size: 2rem;
-  margin-bottom: 2.5rem;
+  margin: 2.5rem 0;
 `;
 
 export const h2 = css`
@@ -49,6 +49,7 @@ export const SectionTitle = styled.h3`
   border-bottom: 1px solid currentcolor;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
+  line-height: 1.3;
 `;
 
 const TextContent = styled.div`
@@ -60,7 +61,8 @@ const TextContent = styled.div`
     ${a};
   }
 
-  line-height: 1.5;
+  line-height: 1.6;
+  hyphens: auto;
 
   h1,
   h2,
@@ -103,6 +105,10 @@ const TextContent = styled.div`
 
   ol {
     list-style-type: decimal;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
   }
 
   blockquote {
