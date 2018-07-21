@@ -10,8 +10,6 @@ import PurpleContainer from "./PurpleContainer";
 import "css-wipe/index.css";
 
 injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900,400i');
-
   :root {
     font-size: 18px;
   }
@@ -22,30 +20,55 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Lato', sans-serif;
+    font-family: Lato, Geneva, Tahoma, sans-serif;
     font-display: swap;
   }
 `;
 
-const Layout = ({ children, intl, localeUrls, headerAbsolute = false }) => {
-  const HeaderWrapper = headerAbsolute ? React.Fragment : PurpleContainer;
+class Layout extends React.PureComponent {
+  componentDidMount() {
+    if (typeof window !== "undefined") {
+      const WebFont = require("webfontloader");
+      WebFont.load({
+        google: {
+          families: ["Lato:400,700,900,400i"]
+        }
+      });
+    }
+  }
 
-  return (
-    <>
-      <HeaderWrapper>
-        <Header absolute={headerAbsolute} localeUrls={localeUrls} />
-      </HeaderWrapper>
-      <div>
-        <Helmet
-          titleTemplate={`%s | Tanssipelit.fi`}
-          defaultTitle={"Tanssipelit.fi"}
-          htmlAttributes={{ lang: intl.locale }}
-        />
-        {children}
-        <Footer />
-      </div>
-    </>
-  );
-};
+  render() {
+    const { headerAbsolute = false, localeUrls, children, intl } = this.props;
+    const HeaderWrapper = headerAbsolute ? React.Fragment : PurpleContainer;
+
+    return (
+      <>
+        <HeaderWrapper>
+          <Header absolute={headerAbsolute} localeUrls={localeUrls} />
+        </HeaderWrapper>
+        <div>
+          <Helmet
+            titleTemplate={`%s | Tanssipelit.fi`}
+            defaultTitle={"Tanssipelit.fi"}
+            htmlAttributes={{ lang: intl.locale }}
+          >
+            <link
+              rel="preconnect"
+              href="https://fonts.gstatic.com/"
+              crossOrigin
+            />
+            <link
+              rel="preconnect"
+              href="https://fonts.googleapis.com/"
+              crossOrigin
+            />
+          </Helmet>
+          {children}
+          <Footer />
+        </div>
+      </>
+    );
+  }
+}
 
 export default injectIntl(Layout);
