@@ -13,7 +13,23 @@ import Intl from "../components/Intl";
 export default function Template({ data: { contentfulNews } }) {
   return (
     <Intl locale={contentfulNews.node_locale}>
-      <Helmet title={contentfulNews.title} />
+      <Helmet title={contentfulNews.title}>
+        <meta name="og:title" content={contentfulNews.title} />
+        <meta name="og:type" content="article" />
+        <meta name="og:image" content={contentfulNews.mainImage.file.url} />
+        <meta
+          name="og:article:published_time"
+          content={contentfulNews.createdAt}
+        />
+        <meta
+          name="og:description"
+          content={contentfulNews.summary.childMarkdownRemark.rawMarkdownBody}
+        />
+        <meta
+          name="description"
+          content={contentfulNews.summary.childMarkdownRemark.rawMarkdownBody}
+        />
+      </Helmet>
       <Layout>
         <FullRow>
           <div>
@@ -56,6 +72,9 @@ export const pageQuery = graphql`
         }
       }
       mainImage {
+        file {
+          url
+        }
         fluid(maxWidth: 1000, maxHeight: 500) {
           ...GatsbyContentfulFluid
         }

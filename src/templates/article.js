@@ -14,7 +14,10 @@ export default function Template({ data: { contentfulArticle } }) {
       <Layout>
         <FullRow>
           <Content>
-            <Helmet title={contentfulArticle.title} />
+            <Helmet title={contentfulArticle.title}>
+              <meta name="og:title" content={contentfulArticle.title} />
+              <meta name="og:type" content="article" />
+            </Helmet>
             <TextContent
               dangerouslySetInnerHTML={{
                 __html: contentfulArticle.content.childMarkdownRemark.html
