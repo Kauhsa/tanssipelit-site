@@ -16,7 +16,15 @@ export default function Template({ data: { contentfulArticle } }) {
           <Content>
             <Helmet title={contentfulArticle.title}>
               <meta name="og:title" content={contentfulArticle.title} />
+              <meta
+                name="og:description"
+                content={contentfulArticle.content.childMarkdownRemark.excerpt}
+              />
               <meta name="og:type" content="article" />
+              <meta
+                name="description"
+                content={contentfulArticle.content.childMarkdownRemark.excerpt}
+              />
             </Helmet>
             <TextContent
               dangerouslySetInnerHTML={{
@@ -39,6 +47,7 @@ export const pageQuery = graphql`
       node_locale
       content {
         childMarkdownRemark {
+          excerpt
           html
         }
       }
