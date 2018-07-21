@@ -7,7 +7,7 @@ import isAfter from "date-fns/is_after";
 import startOfDay from "date-fns/start_of_day";
 import getTime from "date-fns/get_time";
 
-import { newsLink } from "../links";
+import { newsLink, calendarEntryLink } from "../links";
 
 import { h3, SectionTitle } from "./TextContent";
 import TextImage from "./TextImage";
@@ -136,7 +136,10 @@ class IndexHeader extends React.Component {
     );
 
     return take(sortedFutureEvents, 3).map((event, i) => (
-      <SideContentItem key={i}>
+      <SideContentItem
+        key={i}
+        to={calendarEntryLink(event.id, event.node_locale)}
+      >
         <h3>{event.eventName}</h3>
         <SideContentTime>
           <DateTime
