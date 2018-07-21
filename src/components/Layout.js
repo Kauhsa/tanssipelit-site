@@ -8,9 +8,10 @@ import Footer from "./Footer";
 import PurpleContainer from "./PurpleContainer";
 
 import "css-wipe/index.css";
-import "./index.css";
 
 injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900,400i');
+
   :root {
     font-size: 18px;
   }
@@ -22,6 +23,7 @@ injectGlobal`
 
   body {
     font-family: 'Lato', sans-serif;
+    font-display: swap;
   }
 `;
 
@@ -38,12 +40,7 @@ const Layout = ({ children, intl, localeUrls, headerAbsolute = false }) => {
           titleTemplate={`%s | Tanssipelit.fi`}
           defaultTitle={"Tanssipelit.fi"}
           htmlAttributes={{ lang: intl.locale }}
-        >
-          <link
-            href="https://fonts.googleapis.com/css?family=Lato:400,700,900,400i"
-            rel="stylesheet"
-          />
-        </Helmet>
+        />
         {children}
         <Footer />
       </div>

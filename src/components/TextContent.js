@@ -3,7 +3,6 @@ import { colors } from "../style";
 import { transparentize } from "polished";
 
 const headerBase = css`
-  font-family: Lato;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.2;
