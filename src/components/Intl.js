@@ -5,7 +5,8 @@ import fi from "react-intl/locale-data/fi";
 
 import * as messages from "../messages";
 
-addLocaleData(fi, en);
+addLocaleData(en);
+addLocaleData(fi);
 
 export const nodesWithLocale = (locale, edges) =>
   edges.filter(edge => edge.node.node_locale === locale);
