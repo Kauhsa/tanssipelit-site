@@ -62,7 +62,6 @@ const TextContent = styled.div`
   }
 
   line-height: 1.6;
-  hyphens: auto;
 
   h1,
   h2,
@@ -84,6 +83,7 @@ const TextContent = styled.div`
 
   p {
     margin: 1rem 0;
+    hyphens: auto;
   }
 
   em {
