@@ -148,7 +148,8 @@ class IndexHeader extends React.Component {
           />
           {event.end && (
             <>
-              –
+              {" "}
+              –{" "}
               <DateTime
                 dateTime={event.end}
                 options={{
