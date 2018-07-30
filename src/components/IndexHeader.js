@@ -19,6 +19,8 @@ import PurpleContainer from "./PurpleContainer";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { nodesWithLocale } from "./Intl";
 
+const MAX_EVENTS = 2;
+
 const NewsContainer = styled.div`
   a {
     display: block;
@@ -31,7 +33,7 @@ const SideContent = styled.aside`
   font-weight: bold;
 
   ul:not(:last-child) {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   a {
@@ -57,19 +59,23 @@ const Container = PurpleContainer.extend`
   `};
 
   ${NewsContainer} {
-    padding-right: 1.5rem;
+    padding-right: 0.5rem;
     flex-basis: 67%;
 
     ${media.lessThan("medium")`
       padding: 0;
-      padding-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
       width: 100%;
     `};
   }
 
   ${SideContent} {
-    padding: 2rem;
+    padding: 1.5rem 1rem 2rem 2rem;
     flex-basis: 33%;
+
+    ${media.lessThan("medium")`
+      padding: 2rem;
+    `};
   }
 `;
 
@@ -120,7 +126,7 @@ class IndexHeader extends React.Component {
     // If no date, we haven't rendered on client and don't know current date yet.
     // So – render empty entries!
     if (!this.state.date) {
-      return times(Math.min(3, events.length), i => (
+      return times(Math.min(MAX_EVENTS, events.length), i => (
         <SideContentItem key={i}>
           <SideContentTime>&nbsp;</SideContentTime>
           &nbsp;
@@ -136,7 +142,7 @@ class IndexHeader extends React.Component {
       getTime(event.start)
     );
 
-    return take(sortedFutureEvents, 3).map((event, i) => (
+    return take(sortedFutureEvents, MAX_EVENTS).map((event, i) => (
       <SideContentItem
         key={i}
         to={calendarEntryLink(event.id, event.node_locale)}
@@ -163,7 +169,7 @@ class IndexHeader extends React.Component {
         query={graphql`
           query LatestNewsQuery {
             allContentfulNews(
-              limit: 3
+              limit: 2
               sort: { fields: createdAt, order: DESC }
             ) {
               edges {
