@@ -5,20 +5,15 @@ import Helmet from "react-helmet";
 import FullRow from "../components/FullRow";
 import Layout from "../components/Layout";
 import Content from "../components/Content";
-import DateTime from "../components/DateTime";
+import DateRange from "../components/DateRange";
 import TextContent from "../components/TextContent";
 import Intl from "../components/Intl";
 
-const dateFormat = {
-  day: "numeric",
-  month: "numeric",
-  year: "numeric",
-  weekday: "long"
-};
-
 export default function Template({ data: { contentfulCalendarEntry } }) {
+  const locale = contentfulCalendarEntry.node_locale;
+
   return (
-    <Intl locale={contentfulCalendarEntry.node_locale}>
+    <Intl locale={locale}>
       <Helmet title={contentfulCalendarEntry.eventName}>
         <meta name="og:title" content={contentfulCalendarEntry.eventName} />
         <meta name="og:type" content="article" />
@@ -42,22 +37,21 @@ export default function Template({ data: { contentfulCalendarEntry } }) {
               <TextContent>
                 <h2>{contentfulCalendarEntry.eventName}</h2>
                 <p>
-                  <strong>
-                    <DateTime
-                      dateTime={contentfulCalendarEntry.start}
-                      options={dateFormat}
+                  <em>
+                    <DateRange
+                      start={contentfulCalendarEntry.start}
+                      end={contentfulCalendarEntry.end}
+                      options={{
+                        day: "numeric",
+                        month: "numeric",
+                        year: "numeric",
+                        weekday: "long",
+                        hour: "numeric",
+                        minute: "numeric",
+                        ...(locale === "en" && { timeZoneName: "short" })
+                      }}
                     />
-                    {contentfulCalendarEntry.end && (
-                      <>
-                        {" "}
-                        –{" "}
-                        <DateTime
-                          dateTime={contentfulCalendarEntry.end}
-                          options={dateFormat}
-                        />
-                      </>
-                    )}
-                  </strong>
+                  </em>
                 </p>
               </TextContent>
 

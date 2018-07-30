@@ -12,6 +12,7 @@ import { newsLink, calendarEntryLink } from "../links";
 import { h3, SectionTitle } from "./TextContent";
 import TextImage from "./TextImage";
 import DateTime from "./DateTime";
+import DateRange from "./DateRange";
 
 import { headerHeight } from "./Header";
 import PurpleContainer from "./PurpleContainer";
@@ -142,24 +143,15 @@ class IndexHeader extends React.Component {
       >
         <h3>{event.eventName}</h3>
         <SideContentTime>
-          <DateTime
-            dateTime={event.start}
-            options={{ day: "numeric", month: "numeric", weekday: "short" }}
+          <DateRange
+            start={event.start}
+            end={event.end}
+            options={{
+              day: "numeric",
+              month: "numeric",
+              weekday: "short"
+            }}
           />
-          {event.end && (
-            <>
-              {" "}
-              –{" "}
-              <DateTime
-                dateTime={event.end}
-                options={{
-                  day: "numeric",
-                  month: "numeric",
-                  weekday: "short"
-                }}
-              />
-            </>
-          )}
         </SideContentTime>
       </SideContentItem>
     ));
