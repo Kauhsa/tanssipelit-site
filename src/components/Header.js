@@ -246,19 +246,6 @@ class Header extends React.Component {
                           </Link>
                         </li>
                       ))}
-
-                      {this.props.intl.locale === "fi" && (
-                        <li>
-                          <Link
-                            activeClassName="active"
-                            to="/liity"
-                            exact
-                            onClick={this.handleHideMenu}
-                          >
-                            Liity
-                          </Link>
-                        </li>
-                      )}
                     </ul>
                   </nav>
                   <FlagContainer>
