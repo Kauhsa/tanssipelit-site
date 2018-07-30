@@ -49,7 +49,9 @@ export default function Template({ data: { contentfulCalendarEntry } }) {
                     />
                     {contentfulCalendarEntry.end && (
                       <>
-                        –<DateTime
+                        {" "}
+                        –{" "}
+                        <DateTime
                           dateTime={contentfulCalendarEntry.end}
                           options={dateFormat}
                         />
