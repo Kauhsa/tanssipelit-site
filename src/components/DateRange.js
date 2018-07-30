@@ -11,7 +11,7 @@ const DateRange = ({
 }) => {
   const startString = intl.formatDate(start, options);
   const endString = end && intl.formatDate(end, options);
-  const hasEnd = end && startString != endString;
+  const hasEnd = end && startString !== endString;
 
   return (
     <time className={className}>
