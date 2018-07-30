@@ -9,6 +9,14 @@ import Content from "../components/Content";
 import TextContent from "../components/TextContent";
 import { injectIntl } from "react-intl";
 
+const SmallHeaders = TextContent.extend`
+  h1,
+  h2,
+  h3 {
+    text-transform: none;
+  }
+`;
+
 const IndexPage = ({ intl: { locale } }) => (
   <StaticQuery
     query={graphql`
@@ -48,7 +56,7 @@ const IndexPage = ({ intl: { locale } }) => (
           <IndexHeader />
           <FullRow>
             <Content>
-              <TextContent
+              <SmallHeaders
                 dangerouslySetInnerHTML={{
                   __html: node.frontPageContent.childMarkdownRemark.html
                 }}
