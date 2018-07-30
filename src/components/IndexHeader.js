@@ -20,6 +20,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { nodesWithLocale } from "./Intl";
 
 const MAX_EVENTS = 2;
+const MAX_NEWS = 2;
 
 const NewsContainer = styled.div`
   a {
@@ -169,7 +170,7 @@ class IndexHeader extends React.Component {
         query={graphql`
           query LatestNewsQuery {
             allContentfulNews(
-              limit: 2
+              limit: 10
               sort: { fields: createdAt, order: DESC }
             ) {
               edges {
@@ -235,7 +236,7 @@ class IndexHeader extends React.Component {
                   <FormattedMessage id="otherNews" />
                 </SectionTitle>
                 <ul>
-                  {otherNews.map(({ node }, i) => (
+                  {take(otherNews, MAX_NEWS).map(({ node }, i) => (
                     <SideContentItem
                       to={newsLink(node.slug, node.node_locale)}
                       key={i}
