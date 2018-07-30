@@ -7,6 +7,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import PurpleContainer from "./PurpleContainer";
 
+import favicon from "../images/favicon.png";
+
 import "css-wipe/index.css";
 
 injectGlobal`
@@ -52,6 +54,7 @@ class Layout extends React.PureComponent {
             defaultTitle={"Tanssipelit.fi"}
             htmlAttributes={{ lang: intl.locale }}
           >
+            <link rel="icon" type="image/png" href={favicon} sizes="64x46" />
             <link
               rel="preconnect"
               href="https://fonts.gstatic.com/"
