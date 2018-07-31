@@ -4686,6 +4686,12 @@ gatsby-plugin-catch-links@^2.0.2-beta.4:
   dependencies:
     "@babel/runtime" "7.0.0-beta.52"
 
+gatsby-plugin-google-analytics@^2.0.0-beta.3:
+  version "2.0.0-beta.3"
+  resolved "https://registry.npmjs.org/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.0.0-beta.3.tgz#4a4ca7a58c9175cb6048d364f3dcbeaf58f44052"
+  dependencies:
+    "@babel/runtime" "7.0.0-beta.52"
+
 gatsby-plugin-netlify@^2.0.0-beta.2:
   version "2.0.0-beta.3"
   resolved "https://registry.npmjs.org/gatsby-plugin-netlify/-/gatsby-plugin-netlify-2.0.0-beta.3.tgz#5d98ff1db16521fa6ae3779fd1580041300dffa1"
