@@ -186,7 +186,7 @@ class IndexHeader extends React.Component {
                     }
                   }
                   mainImage {
-                    fluid(maxWidth: 1000, maxHeight: 600) {
+                    fluid(maxWidth: 1100, maxHeight: 600) {
                       ...GatsbyContentfulFluid
                     }
                   }
