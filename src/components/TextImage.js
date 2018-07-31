@@ -12,7 +12,10 @@ const Content = styled.div`
 
   .stretch {
     height: 100%;
+    min-height: 25rem;
   }
+
+  min-height: 25rem;
 `;
 
 const ItemContent = styled.div`
