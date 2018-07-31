@@ -9,6 +9,8 @@ import Content from "../components/Content";
 import TextContent from "../components/TextContent";
 import { injectIntl } from "react-intl";
 
+import logoPurpleBg from "../images/stp_logo_purple_background.png";
+
 const SmallHeaders = TextContent.extend`
   h1,
   h2,
@@ -57,6 +59,7 @@ const IndexPage = ({ intl: { locale } }) => (
               name="description"
               content={node.metaDescription.childMarkdownRemark.rawMarkdownBody}
             />
+            <meta name="og:image" content={logoPurpleBg} />
           </Helmet>
           <IndexHeader />
           <FullRow>
