@@ -7,6 +7,7 @@ import { colors } from "../style";
 import seulLogo from "../images/seul-logo-varillinen-sininen.png";
 import discordLogo from "../images/discord-logo-purple-trimmed.svg";
 import mckylaLogo from "../images/mckyla-logo.svg";
+import redditLogo from "../images/reddit-logo.svg";
 
 import FullRow from "./FullRow";
 import TextContent, { SectionTitle, a } from "./TextContent";
@@ -141,6 +142,10 @@ const Footer = () => (
 
               <a href="https://mckyla.tanssipelit.fi/">
                 <img src={mckylaLogo} />
+              </a>
+
+              <a href="https://reddit.com/r/tanssipelit">
+                <img src={redditLogo} />
               </a>
             </div>
           </FooterSection>
