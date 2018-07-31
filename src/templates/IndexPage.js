@@ -13,6 +13,11 @@ const SmallHeaders = TextContent.extend`
   h1,
   h2,
   h3 {
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  h1 {
     text-transform: none;
   }
 `;
