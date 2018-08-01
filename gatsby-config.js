@@ -59,6 +59,11 @@ module.exports = {
       }
     },
 
-    "gatsby-plugin-netlify"
+    {
+      resolve: "gatsby-plugin-netlify",
+      options: {
+        mergeCachingHeaders: false // caching header seem to mean trouble in netlify
+      }
+    }
   ]
 };
