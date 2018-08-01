@@ -4692,11 +4692,11 @@ gatsby-plugin-google-analytics@^2.0.0-beta.3:
   dependencies:
     "@babel/runtime" "7.0.0-beta.52"
 
-gatsby-plugin-netlify@^2.0.0-beta.2:
-  version "2.0.0-beta.3"
-  resolved "https://registry.npmjs.org/gatsby-plugin-netlify/-/gatsby-plugin-netlify-2.0.0-beta.3.tgz#5d98ff1db16521fa6ae3779fd1580041300dffa1"
+gatsby-plugin-netlify@^2.0.0-beta.4:
+  version "2.0.0-beta.4"
+  resolved "https://registry.npmjs.org/gatsby-plugin-netlify/-/gatsby-plugin-netlify-2.0.0-beta.4.tgz#852bf55dfd8a01954ea80b738b121211ab1b012f"
   dependencies:
-    "@babel/runtime" "7.0.0-beta.51"
+    "@babel/runtime" "7.0.0-beta.52"
     fs-extra "^4.0.2"
     kebab-hash "^0.1.2"
     lodash "^4.17.4"

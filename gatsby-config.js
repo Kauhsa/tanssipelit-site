@@ -57,8 +57,8 @@ module.exports = {
         respectDNT: true,
         exclude: []
       }
-    }
+    },
 
-    // "gatsby-plugin-netlify"
+    "gatsby-plugin-netlify"
   ]
 };

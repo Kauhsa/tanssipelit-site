@@ -1,7 +1,10 @@
 const path = require("path");
 const { newsLink, articleLink, calendarEntryLink } = require("./src/links");
 
-exports.createPages = async ({ actions: { createPage }, graphql }) => {
+exports.createPages = async ({
+  actions: { createPage, createRedirect },
+  graphql
+}) => {
   const { errors, data } = await graphql(`
     {
       allContentfulNews(limit: 1000) {
@@ -67,5 +70,12 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
         id: node.id
       }
     });
+  });
+
+  // redirect to old forums
+  createRedirect({
+    fromPath: "/palsta/*",
+    toPath: "http://wanha.tanssipelit.fi/palsta/:splat",
+    isPermanent: true
   });
 };
