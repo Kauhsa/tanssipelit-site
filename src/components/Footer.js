@@ -12,6 +12,7 @@ import redditLogo from "../images/reddit-logo.svg";
 import FullRow from "./FullRow";
 import TextContent, { SectionTitle, a } from "./TextContent";
 import { FormattedMessage } from "react-intl";
+import EmailLink from "./EmailLink";
 
 const presidentName = "Esa Laitinen";
 const secretaryName = "Meo Ekroos";
@@ -73,13 +74,13 @@ const FooterSection = styled.div`
   }
 `;
 
-const Email = ({ email, name, title }) => (
+const Email = ({ emailPrefix, name, title }) => (
   <TextContent>
     <p>
       {(name || title) && <strong>{name || title}</strong>}
       {name && title && ", "}
       {name && title && <span>{title}</span>}
-      <a href={"mailto:" + email}>{email}</a>
+      <EmailLink prefix={emailPrefix} />
     </p>
   </TextContent>
 );
@@ -113,20 +114,20 @@ const Footer = () => (
               <Email
                 title={<FormattedMessage id="president" />}
                 name={presidentName}
-                email="pj@tanssipelit.fi"
+                emailPrefix="pj"
               />
               <Email
                 title={<FormattedMessage id="secretary" />}
                 name={secretaryName}
-                email="sihteeri@tanssipelit.fi"
+                emailPrefix="sihteeri"
               />
               <Email
                 title={<FormattedMessage id="board" />}
-                email="hallitus@tanssipelit.fi"
+                emailPrefix="hallitus"
               />
               <Email
                 title={<FormattedMessage id="admin" />}
-                email="admin@tanssipelit.fi"
+                emailPrefix="admin"
               />
             </div>
           </FooterSection>
