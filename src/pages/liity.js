@@ -60,6 +60,10 @@ const Join = () => (
               Käytä sähköpostin pohjana tätä mallia:
             </p>
             <MailTemplate>{emailBody}</MailTemplate>
+            <p>
+              Suomen Tanssipelaajat ry. ei jaa tietojasi eteenpäin, ks.{" "}
+              <Link to="/rekisteriseloste">rekisteriseloste</Link>.
+            </p>
           </TextContent>
         </Content>
       </FullRow>
