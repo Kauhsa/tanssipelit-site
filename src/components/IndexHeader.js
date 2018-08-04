@@ -71,11 +71,11 @@ const Container = PurpleContainer.extend`
   }
 
   ${SideContent} {
-    padding: 1.5rem 1rem 2rem 2rem;
+    padding: 1.5rem 1rem 1rem 2rem;
     flex-basis: 33%;
 
     ${media.lessThan("medium")`
-      padding: 2rem;
+      padding: 1.5rem 2rem 0.5rem 2rem;
     `};
   }
 `;
