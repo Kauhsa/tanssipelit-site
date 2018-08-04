@@ -31,6 +31,7 @@ const NewsContainer = styled.div`
 
 const SideContent = styled.aside`
   font-size: 1rem;
+  line-height: 1.2;
   font-weight: bold;
 
   ul:not(:last-child) {
