@@ -188,7 +188,7 @@ class IndexHeader extends React.Component {
                   }
                   mainImage {
                     fluid(
-                      maxWidth: 1100
+                      maxWidth: 800
                       maxHeight: 600
                       quality: 80
                       resizingBehavior: FILL
