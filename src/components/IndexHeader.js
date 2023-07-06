@@ -170,10 +170,7 @@ class IndexHeader extends React.Component {
       <StaticQuery
         query={graphql`
           query LatestNewsQuery {
-            allContentfulNews(
-              limit: 10
-              sort: { fields: createdAt, order: DESC }
-            ) {
+            allContentfulNews(limit: 10, sort: {createdAt: DESC}) {
               edges {
                 node {
                   node_locale
@@ -200,7 +197,6 @@ class IndexHeader extends React.Component {
                 }
               }
             }
-
             allContentfulCalendarEntry {
               edges {
                 node {
@@ -212,8 +208,8 @@ class IndexHeader extends React.Component {
                 }
               }
             }
-          }
-        `}
+          }`
+        }
         render={data => {
           const {
             intl: { locale }
