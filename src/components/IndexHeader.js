@@ -3,18 +3,18 @@ import media from "styled-media-query";
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import { times, take, sortBy } from "lodash-es";
-import {isAfter, startOfDay, getTime } from "date-fns";
+import { isAfter, startOfDay, getTime } from "date-fns";
 
+import { injectIntl, FormattedMessage } from "react-intl";
 import { newsLink, calendarEntryLink } from "../links";
 
-import { h3, SectionTitle } from "./TextContent";
+import { SectionTitle } from "./TextContent";
 import TextImage from "./TextImage";
 import DateTime from "./DateTime";
 import DateRange from "./DateRange";
 
 import { headerHeight } from "./Header";
 import PurpleContainer from "./PurpleContainer";
-import { injectIntl, FormattedMessage } from "react-intl";
 import { nodesWithLocale } from "./Intl";
 
 const MAX_EVENTS = 2;
@@ -79,18 +79,20 @@ const Container = styled(PurpleContainer)`
   }
 `;
 
-const HighlightNewsItem = ({
-  node: { title, slug, mainImage, createdAt, node_locale: nodeLocale }
-}) => (
-  <NewsContainer>
-    <Link to={newsLink(slug, nodeLocale)}>
-      <TextImage gatsbyImageData={mainImage.gatsbyImageData}>
-        <h2>{title}</h2>
-        <DateTime dateTime={createdAt} />
-      </TextImage>
-    </Link>
-  </NewsContainer>
-);
+function HighlightNewsItem({
+  node: { title, slug, mainImage, createdAt, node_locale: nodeLocale },
+}) {
+  return (
+    <NewsContainer>
+      <Link to={newsLink(slug, nodeLocale)}>
+        <TextImage gatsbyImageData={mainImage.gatsbyImageData}>
+          <h2>{title}</h2>
+          <DateTime dateTime={createdAt} />
+        </TextImage>
+      </Link>
+    </NewsContainer>
+  );
+}
 
 const SideContentItem = styled(({ to, className, children }) => (
   <li className={className}>
@@ -113,20 +115,20 @@ const SideContentItem = styled(({ to, className, children }) => (
 
 class IndexHeader extends React.Component {
   state = {
-    date: null
+    date: null,
   };
 
   componentDidMount() {
     this.setState({
-      date: Date.now()
+      date: Date.now(),
     });
   }
 
-  getEvents = events => {
+  getEvents = (events) => {
     // If no date, we haven't rendered on client and don't know current date yet.
     // So – render empty entries!
     if (!this.state.date) {
-      return times(Math.min(MAX_EVENTS, events.length), i => (
+      return times(Math.min(MAX_EVENTS, events.length), (i) => (
         <SideContentItem key={i}>
           <SideContentTime>&nbsp;</SideContentTime>
           &nbsp;
@@ -134,11 +136,13 @@ class IndexHeader extends React.Component {
       ));
     }
 
-    const futureEvents = events.map(({ node }) => node).filter(event => {
-      return isAfter(event.end || event.start, startOfDay(this.state.date));
-    });
+    const futureEvents = events
+      .map(({ node }) => node)
+      .filter((event) =>
+        isAfter(event.end || event.start, startOfDay(this.state.date))
+      );
 
-    const sortedFutureEvents = sortBy(futureEvents, event =>
+    const sortedFutureEvents = sortBy(futureEvents, (event) =>
       getTime(event.start)
     );
 
@@ -155,7 +159,7 @@ class IndexHeader extends React.Component {
             options={{
               day: "numeric",
               month: "numeric",
-              weekday: "short"
+              weekday: "short",
             }}
           />
         </SideContentTime>
@@ -168,7 +172,7 @@ class IndexHeader extends React.Component {
       <StaticQuery
         query={graphql`
           query LatestNewsQuery {
-            allContentfulNews(limit: 10, sort: {createdAt: DESC}) {
+            allContentfulNews(limit: 10, sort: { createdAt: DESC }) {
               edges {
                 node {
                   node_locale
@@ -183,11 +187,11 @@ class IndexHeader extends React.Component {
                   }
                   mainImage {
                     gatsbyImageData(
-                      layout: CONSTRAINED,
-                      quality: 80,
-                      width: 800,
-                      aspectRatio: 1.35,
-                      resizingBehavior: FILL,
+                      layout: CONSTRAINED
+                      quality: 80
+                      width: 800
+                      aspectRatio: 1.35
+                      resizingBehavior: FILL
                       cropFocus: FACES
                     )
                   }
@@ -205,11 +209,11 @@ class IndexHeader extends React.Component {
                 }
               }
             }
-          }`
-        }
-        render={data => {
+          }
+        `}
+        render={(data) => {
           const {
-            intl: { locale }
+            intl: { locale },
           } = this.props;
 
           const [mostRecentNews, ...otherNews] = nodesWithLocale(

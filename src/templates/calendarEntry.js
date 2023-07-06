@@ -48,7 +48,7 @@ export default function Template({ data: { contentfulCalendarEntry } }) {
                         weekday: "long",
                         hour: "numeric",
                         minute: "numeric",
-                        ...(locale === "en" && { timeZoneName: "short" })
+                        ...(locale === "en" && { timeZoneName: "short" }),
                       }}
                     />
                   </em>
@@ -58,7 +58,8 @@ export default function Template({ data: { contentfulCalendarEntry } }) {
               <TextContent
                 dangerouslySetInnerHTML={{
                   __html:
-                    contentfulCalendarEntry.description.childMarkdownRemark.html
+                    contentfulCalendarEntry.description.childMarkdownRemark
+                      .html,
                 }}
               />
             </div>

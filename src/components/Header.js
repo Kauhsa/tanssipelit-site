@@ -22,7 +22,7 @@ export const headerHeight = "5rem";
 const headerBackground = transparentize(0.05, colors.purple);
 
 const HeaderContainer = styled(Headroom)`
-  ${props =>
+  ${(props) =>
     props.absolute &&
     css`
       position: absolute;
@@ -151,26 +151,26 @@ const Flag = styled.img`
 
 const defaultLocaleUrls = {
   fi: "/",
-  en: "/en"
+  en: "/en",
 };
 
 // this CAN'T be PureComponent, or activeClassName in links won't work
 class Header extends React.Component {
   state = {
-    mobileMenuOpen: false
+    mobileMenuOpen: false,
   };
 
-  handleToggleMenu = e => {
+  handleToggleMenu = (e) => {
     e.preventDefault();
 
     this.setState({
-      mobileMenuOpen: !this.state.mobileMenuOpen
+      mobileMenuOpen: !this.state.mobileMenuOpen,
     });
   };
 
   handleHideMenu = () => {
     this.setState({
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
     });
   };
 
@@ -196,13 +196,13 @@ class Header extends React.Component {
             }
           }
         `}
-        render={data => {
-          const locale = this.props.intl.locale;
+        render={(data) => {
+          const { locale } = this.props.intl;
 
-          const navigation = nodesWithLocale(
+          const { navigation } = nodesWithLocale(
             locale,
             data.allContentfulSettings.edges
-          )[0].node.navigation;
+          )[0].node;
 
           const otherLocale = locale === "fi" ? "en" : "fi";
           const flagImage = otherLocale === "fi" ? fiFlag : enFlag;
@@ -235,7 +235,7 @@ class Header extends React.Component {
                         </Link>
                       </li>
 
-                      {navigation.map(link => (
+                      {navigation.map((link) => (
                         <li key={link.id}>
                           <Link
                             activeClassName="active"

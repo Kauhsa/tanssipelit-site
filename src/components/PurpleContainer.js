@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { transparentize } from "polished";
 
-import { colors } from "../style";
 import { StaticQuery, graphql } from "gatsby";
+import { colors } from "../style";
 import FullRow from "./FullRow";
 
 const Overlay = styled.div`
@@ -32,37 +32,39 @@ const Overlay = styled.div`
 `;
 
 const Background = styled.div`
-  background-image: url('${props => props.backgroundImage}');
+  background-image: url("${(props) => props.backgroundImage}");
   background-position: center top;
   background-size: cover;
 `;
 
-const Container = ({ children, className }) => (
-  <StaticQuery
-    query={graphql`
-      query PurpleContainerQuery {
-        background: file(relativePath: { eq: "background.png" }) {
-          childImageSharp {
-            fixed(
-              width: 1500
-              quality: 60
-              toFormat: JPG
-              jpegProgressive: true
-            ) {
-              src
+function Container({ children, className }) {
+  return (
+    <StaticQuery
+      query={graphql`
+        query PurpleContainerQuery {
+          background: file(relativePath: { eq: "background.png" }) {
+            childImageSharp {
+              fixed(
+                width: 1500
+                quality: 60
+                toFormat: JPG
+                jpegProgressive: true
+              ) {
+                src
+              }
             }
           }
         }
-      }
-    `}
-    render={data => (
-      <Background backgroundImage={data.background.childImageSharp.fixed.src}>
-        <FullRow>
-          <Overlay className={className}>{children}</Overlay>
-        </FullRow>
-      </Background>
-    )}
-  />
-);
+      `}
+      render={(data) => (
+        <Background backgroundImage={data.background.childImageSharp.fixed.src}>
+          <FullRow>
+            <Overlay className={className}>{children}</Overlay>
+          </FullRow>
+        </Background>
+      )}
+    />
+  );
+}
 
 export default styled(Container)``;

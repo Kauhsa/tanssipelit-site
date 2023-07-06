@@ -33,7 +33,9 @@ export default function Template({ data: { contentfulNews } }) {
       <Layout>
         <FullRow>
           <div>
-            <TextImage gatsbyImageData={contentfulNews.mainImage.gatsbyImageData}>
+            <TextImage
+              gatsbyImageData={contentfulNews.mainImage.gatsbyImageData}
+            >
               <h1>{contentfulNews.title}</h1>
               <DateTime dateTime={contentfulNews.createdAt} />
             </TextImage>
@@ -41,7 +43,7 @@ export default function Template({ data: { contentfulNews } }) {
               <div>
                 <TextContent
                   dangerouslySetInnerHTML={{
-                    __html: contentfulNews.content.childMarkdownRemark.html
+                    __html: contentfulNews.content.childMarkdownRemark.html,
                   }}
                 />
               </div>
@@ -78,8 +80,8 @@ export const pageQuery = graphql`
         gatsbyImageData(
           layout: CONSTRAINED
           width: 1100
-          aspectRatio: 1.75,
-          resizingBehavior: FILL,
+          aspectRatio: 1.75
+          resizingBehavior: FILL
           cropFocus: FACES
         )
       }

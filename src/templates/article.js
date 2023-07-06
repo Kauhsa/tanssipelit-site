@@ -28,7 +28,7 @@ export default function Template({ data: { contentfulArticle } }) {
             </Helmet>
             <TextContent
               dangerouslySetInnerHTML={{
-                __html: contentfulArticle.content.childMarkdownRemark.html
+                __html: contentfulArticle.content.childMarkdownRemark.html,
               }}
             />
           </Content>

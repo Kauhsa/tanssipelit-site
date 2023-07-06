@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { injectIntl } from "react-intl";
 
-const DateRange = ({
+function DateRange({
   start,
   end,
   intl,
   options = { day: "numeric", month: "numeric", year: "numeric" },
-  className
-}) => {
+  className,
+}) {
   const startString = intl.formatDate(start, options);
   const endString = end && intl.formatDate(end, options);
   const hasEnd = end && startString !== endString;
@@ -19,6 +19,6 @@ const DateRange = ({
       {hasEnd && ` – ${endString}`}
     </time>
   );
-};
+}
 
 export default styled(injectIntl(DateRange))``;

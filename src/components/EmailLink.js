@@ -2,7 +2,7 @@ import React from "react";
 
 class EmailLink extends React.Component {
   state = {
-    client: false
+    client: false,
   };
 
   componentDidMount() {

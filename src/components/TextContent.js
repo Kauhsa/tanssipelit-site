@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { colors } from "../style";
 import { transparentize } from "polished";
+import { colors } from "../style";
 
 const headerBase = css`
   text-transform: uppercase;

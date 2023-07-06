@@ -3,6 +3,7 @@ import styled from "styled-components";
 import media from "styled-media-query";
 import { StaticQuery, graphql } from "gatsby";
 
+import { FormattedMessage } from "react-intl";
 import { colors } from "../style";
 import seulLogo from "../images/seul-logo-varillinen-sininen.png";
 import discordLogo from "../images/discord-logo-purple-trimmed.svg";
@@ -11,7 +12,6 @@ import redditLogo from "../images/reddit-logo.svg";
 
 import FullRow from "./FullRow";
 import TextContent, { SectionTitle, a } from "./TextContent";
-import { FormattedMessage } from "react-intl";
 import EmailLink from "./EmailLink";
 
 const presidentName = "Esa Laitinen";
@@ -39,7 +39,7 @@ const FooterRow = styled(FullRow)`
     left: 0;
     bottom: 0;
     right: 0;
-    background: url(${props => props.background});
+    background: url(${(props) => props.background});
     background-size: cover;
     background-position: center bottom;
     opacity: 0.02;
@@ -74,96 +74,100 @@ const FooterSection = styled.div`
   }
 `;
 
-const Email = ({ emailPrefix, name, title }) => (
-  <TextContent>
-    <p>
-      {(name || title) && <strong>{name || title}</strong>}
-      {name && title && ", "}
-      {name && title && <span>{title}</span>}
-      <EmailLink prefix={emailPrefix} />
-    </p>
-  </TextContent>
-);
+function Email({ emailPrefix, name, title }) {
+  return (
+    <TextContent>
+      <p>
+        {(name || title) && <strong>{name || title}</strong>}
+        {name && title && ", "}
+        {name && title && <span>{title}</span>}
+        <EmailLink prefix={emailPrefix} />
+      </p>
+    </TextContent>
+  );
+}
 
-const Footer = () => (
-  <StaticQuery
-    query={graphql`
-      query FooterQuery {
-        background: file(relativePath: { eq: "background.png" }) {
-          childImageSharp {
-            fixed(
-              width: 1500
-              quality: 60
-              toFormat: JPG
-              jpegProgressive: true
-            ) {
-              src
+function Footer() {
+  return (
+    <StaticQuery
+      query={graphql`
+        query FooterQuery {
+          background: file(relativePath: { eq: "background.png" }) {
+            childImageSharp {
+              fixed(
+                width: 1500
+                quality: 60
+                toFormat: JPG
+                jpegProgressive: true
+              ) {
+                src
+              }
             }
           }
         }
-      }
-    `}
-    render={data => (
-      <FooterRow background={data.background.childImageSharp.fixed.src}>
-        <FooterContainer>
-          <FooterSection>
-            <SectionTitle>
-              <FormattedMessage id="finnishDanceGamersAssociation" />
-            </SectionTitle>
-            <div>
-              <Email
-                title={<FormattedMessage id="president" />}
-                name={presidentName}
-                emailPrefix="pj"
-              />
-              <Email
-                title={<FormattedMessage id="secretary" />}
-                name={secretaryName}
-                emailPrefix="sihteeri"
-              />
-              <Email
-                title={<FormattedMessage id="board" />}
-                emailPrefix="hallitus"
-              />
-              <Email
-                title={<FormattedMessage id="admin" />}
-                emailPrefix="admin"
-              />
-            </div>
-          </FooterSection>
+      `}
+      render={(data) => (
+        <FooterRow background={data.background.childImageSharp.fixed.src}>
+          <FooterContainer>
+            <FooterSection>
+              <SectionTitle>
+                <FormattedMessage id="finnishDanceGamersAssociation" />
+              </SectionTitle>
+              <div>
+                <Email
+                  title={<FormattedMessage id="president" />}
+                  name={presidentName}
+                  emailPrefix="pj"
+                />
+                <Email
+                  title={<FormattedMessage id="secretary" />}
+                  name={secretaryName}
+                  emailPrefix="sihteeri"
+                />
+                <Email
+                  title={<FormattedMessage id="board" />}
+                  emailPrefix="hallitus"
+                />
+                <Email
+                  title={<FormattedMessage id="admin" />}
+                  emailPrefix="admin"
+                />
+              </div>
+            </FooterSection>
 
-          <FooterSection>
-            <SectionTitle>
-              <FormattedMessage id="community" />
-            </SectionTitle>
-            <div>
-              <a href="https://discord.me/tanssipelaajat">
-                <img src={discordLogo} />
-              </a>
+            <FooterSection>
+              <SectionTitle>
+                <FormattedMessage id="community" />
+              </SectionTitle>
+              <div>
+                <a href="https://discord.me/tanssipelaajat">
+                  <img src={discordLogo} />
+                </a>
 
-              <a href="https://mckyla.tanssipelit.fi/">
-                <img src={mckylaLogo} />
-              </a>
+                <a href="https://mckyla.tanssipelit.fi/">
+                  <img src={mckylaLogo} />
+                </a>
 
-              <a href="https://reddit.com/r/tanssipelit">
-                <img src={redditLogo} />
-              </a>
-            </div>
-          </FooterSection>
+                <a href="https://reddit.com/r/tanssipelit">
+                  <img src={redditLogo} />
+                </a>
+              </div>
+            </FooterSection>
 
-          <FooterSection>
-            <SectionTitle>
-              <FormattedMessage id="partners" />
-            </SectionTitle>
-            <div>
-              <a href="http://seul.fi/">
-                <img src={seulLogo} />
-              </a>
-            </div>
-          </FooterSection>
-        </FooterContainer>
-      </FooterRow>
-    )}
-  />
-);
+            <FooterSection>
+              <SectionTitle>
+                <FormattedMessage id="partners" />
+              </SectionTitle>
+              <div>
+                <a href="http://seul.fi/">
+                  <img src={seulLogo} />
+                </a>
+              </div>
+            </FooterSection>
+          </FooterContainer>
+        </FooterRow>
+      )}
+    />
+  );
+}
 export default Footer;

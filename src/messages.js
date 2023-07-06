@@ -8,7 +8,7 @@ export const fi = {
   president: "Puheenjohtaja",
   secretary: "Sihteeri",
   board: "Hallitus",
-  admin: "Ylläpito"
+  admin: "Ylläpito",
 };
 
 export const en = {
@@ -21,5 +21,5 @@ export const en = {
   president: "Chair",
   secretary: "Secretary",
   board: "Board",
-  admin: "Administrator"
+  admin: "Administrator",
 };

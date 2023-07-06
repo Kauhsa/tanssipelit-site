@@ -1,3 +1,3 @@
 export const colors = {
-  purple: "#352A6E"
+  purple: "#352A6E",
 };
