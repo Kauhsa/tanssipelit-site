@@ -186,7 +186,7 @@ class IndexHeader extends React.Component {
                       layout: CONSTRAINED,
                       quality: 80,
                       width: 800,
-                      aspectRatio: 1.4,
+                      aspectRatio: 1.35,
                       resizingBehavior: FILL,
                       cropFocus: FACES
                     )
