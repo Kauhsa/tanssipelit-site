@@ -11,7 +11,7 @@ import { injectIntl } from "react-intl";
 
 import logoPurpleBg from "../images/stp_logo_purple_background.png";
 
-const SmallHeaders = TextContent.extend`
+const SmallHeaders = styled(TextContent)`
   h1,
   h2,
   h3 {

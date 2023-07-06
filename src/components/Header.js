@@ -1,7 +1,7 @@
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import Headroom from "react-headroom";
-import FaBars from "react-icons/lib/fa/bars";
+import FaBars from "react-icons/fa";
 import styled, { css } from "styled-components";
 import media from "styled-media-query";
 import { injectIntl, FormattedMessage } from "react-intl";

@@ -17,7 +17,7 @@ import EmailLink from "./EmailLink";
 const presidentName = "Esa Laitinen";
 const secretaryName = "Meo Ekroos";
 
-const FooterRow = FullRow.extend`
+const FooterRow = styled(FullRow)`
   position: relative;
   padding: 1rem;
   color: ${colors.purple};

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import DateTime from "./DateTime";
 
@@ -74,9 +74,9 @@ const Text = styled.div`
   }
 `;
 
-const TextImage = ({ fluid, children }) => (
+const TextImage = ({ gatsbyImageData, children }) => (
   <Content>
-    <Img fluid={fluid} className="stretch" outerWrapperClassName="stretch" />
+    <GatsbyImage image={gatsbyImageData} className="stretch" outerWrapperClassName="stretch" />
     <ItemContent>
       <Text>{children}</Text>
     </ItemContent>

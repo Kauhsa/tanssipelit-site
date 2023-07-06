@@ -3,9 +3,7 @@ import media from "styled-media-query";
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import { times, take, sortBy } from "lodash-es";
-import isAfter from "date-fns/is_after";
-import startOfDay from "date-fns/start_of_day";
-import getTime from "date-fns/get_time";
+import {isAfter, startOfDay, getTime } from "date-fns";
 
 import { newsLink, calendarEntryLink } from "../links";
 
@@ -50,7 +48,7 @@ const SideContentTime = styled.div`
   margin-top: 0.4rem;
 `;
 
-const Container = PurpleContainer.extend`
+const Container = styled(PurpleContainer)`
   padding: ${headerHeight} 1.5rem 0 0;
   display: flex;
   flex-basis: 100%;
@@ -82,11 +80,11 @@ const Container = PurpleContainer.extend`
 `;
 
 const HighlightNewsItem = ({
-  node: { summary, title, slug, mainImage, createdAt, node_locale: nodeLocale }
+  node: { title, slug, mainImage, createdAt, node_locale: nodeLocale }
 }) => (
   <NewsContainer>
     <Link to={newsLink(slug, nodeLocale)}>
-      <TextImage fluid={mainImage.fluid}>
+      <TextImage gatsbyImageData={mainImage.gatsbyImageData}>
         <h2>{title}</h2>
         <DateTime dateTime={createdAt} />
       </TextImage>
@@ -184,15 +182,7 @@ class IndexHeader extends React.Component {
                     }
                   }
                   mainImage {
-                    fluid(
-                      maxWidth: 800
-                      maxHeight: 600
-                      quality: 80
-                      resizingBehavior: FILL
-                      cropFocus: FACES
-                    ) {
-                      ...GatsbyContentfulFluid
-                    }
+                    gatsbyImageData(layout: FIXED)
                   }
                 }
               }

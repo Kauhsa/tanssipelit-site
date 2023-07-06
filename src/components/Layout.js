@@ -1,6 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
-import { injectGlobal } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { injectIntl } from "react-intl";
 
 import Header from "./Header";
@@ -11,7 +11,7 @@ import favicon from "../images/favicon.png";
 
 import "css-wipe/index.css";
 
-injectGlobal`
+createGlobalStyle`
   :root {
     font-size: 18px;
   }

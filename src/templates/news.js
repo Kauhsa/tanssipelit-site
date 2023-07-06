@@ -33,7 +33,7 @@ export default function Template({ data: { contentfulNews } }) {
       <Layout>
         <FullRow>
           <div>
-            <TextImage fluid={contentfulNews.mainImage.fluid}>
+            <TextImage gatsbyImageData={contentfulNews.mainImage.gatsbyImageData}>
               <h1>{contentfulNews.title}</h1>
               <DateTime dateTime={contentfulNews.createdAt} />
             </TextImage>
@@ -75,15 +75,7 @@ export const pageQuery = graphql`
         file {
           url
         }
-        fluid(
-          maxWidth: 1100
-          maxHeight: 600
-          quality: 100
-          resizingBehavior: FILL
-          cropFocus: FACES
-        ) {
-          ...GatsbyContentfulFluid
-        }
+        gatsbyImageData(layout: FIXED)
       }
     }
   }
