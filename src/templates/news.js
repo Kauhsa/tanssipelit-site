@@ -75,7 +75,13 @@ export const pageQuery = graphql`
         file {
           url
         }
-        gatsbyImageData(layout: FIXED)
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1100
+          aspectRatio: 1.75,
+          resizingBehavior: FILL,
+          cropFocus: FACES
+        )
       }
     }
   }

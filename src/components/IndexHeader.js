@@ -182,7 +182,14 @@ class IndexHeader extends React.Component {
                     }
                   }
                   mainImage {
-                    gatsbyImageData(layout: FIXED)
+                    gatsbyImageData(
+                      layout: CONSTRAINED,
+                      quality: 80,
+                      width: 800,
+                      aspectRatio: 1.4,
+                      resizingBehavior: FILL,
+                      cropFocus: FACES
+                    )
                   }
                 }
               }
