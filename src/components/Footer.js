@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
-import { StaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 
 import { FormattedMessage } from "react-intl";
 import { colors } from "../style";
@@ -88,87 +88,84 @@ function Email({ emailPrefix, name, title }) {
 }
 
 function Footer() {
-  return (
-    <StaticQuery
-      query={graphql`
-        query FooterQuery {
-          background: file(relativePath: { eq: "background.png" }) {
-            childImageSharp {
-              gatsbyImageData(
-                width: 1500
-                jpgOptions: { progressive: true, quality: 60 }
-                formats: [JPG]
-              )
-            }
-          }
+  const data = useStaticQuery(graphql`
+    query FooterQuery {
+      background: file(relativePath: { eq: "background.png" }) {
+        childImageSharp {
+          gatsbyImageData(
+            width: 1500
+            jpgOptions: { progressive: true, quality: 60 }
+            formats: [JPG]
+          )
         }
-      `}
-      render={(data) => (
-        <FooterRow
-          background={
-            data.background.childImageSharp.gatsbyImageData.images.fallback.src
-          }
-        >
-          <FooterContainer>
-            <FooterSection>
-              <SectionTitle>
-                <FormattedMessage id="finnishDanceGamersAssociation" />
-              </SectionTitle>
-              <div>
-                <Email
-                  title={<FormattedMessage id="president" />}
-                  name={presidentName}
-                  emailPrefix="pj"
-                />
-                <Email
-                  title={<FormattedMessage id="secretary" />}
-                  name={secretaryName}
-                  emailPrefix="sihteeri"
-                />
-                <Email
-                  title={<FormattedMessage id="board" />}
-                  emailPrefix="hallitus"
-                />
-                <Email
-                  title={<FormattedMessage id="admin" />}
-                  emailPrefix="admin"
-                />
-              </div>
-            </FooterSection>
+      }
+    }
+  `);
 
-            <FooterSection>
-              <SectionTitle>
-                <FormattedMessage id="community" />
-              </SectionTitle>
-              <div>
-                <a href="https://discord.me/tanssipelaajat">
-                  <img src={discordLogo} />
-                </a>
+  return (
+    <FooterRow
+      background={
+        data.background.childImageSharp.gatsbyImageData.images.fallback.src
+      }
+    >
+      <FooterContainer>
+        <FooterSection>
+          <SectionTitle>
+            <FormattedMessage id="finnishDanceGamersAssociation" />
+          </SectionTitle>
+          <div>
+            <Email
+              title={<FormattedMessage id="president" />}
+              name={presidentName}
+              emailPrefix="pj"
+            />
+            <Email
+              title={<FormattedMessage id="secretary" />}
+              name={secretaryName}
+              emailPrefix="sihteeri"
+            />
+            <Email
+              title={<FormattedMessage id="board" />}
+              emailPrefix="hallitus"
+            />
+            <Email
+              title={<FormattedMessage id="admin" />}
+              emailPrefix="admin"
+            />
+          </div>
+        </FooterSection>
 
-                <a href="https://mckyla.tanssipelit.fi/">
-                  <img src={mckylaLogo} />
-                </a>
+        <FooterSection>
+          <SectionTitle>
+            <FormattedMessage id="community" />
+          </SectionTitle>
+          <div>
+            <a href="https://discord.me/tanssipelaajat">
+              <img src={discordLogo} />
+            </a>
 
-                <a href="https://reddit.com/r/tanssipelit">
-                  <img src={redditLogo} />
-                </a>
-              </div>
-            </FooterSection>
+            <a href="https://mckyla.tanssipelit.fi/">
+              <img src={mckylaLogo} />
+            </a>
 
-            <FooterSection>
-              <SectionTitle>
-                <FormattedMessage id="partners" />
-              </SectionTitle>
-              <div>
-                <a href="http://seul.fi/">
-                  <img src={seulLogo} />
-                </a>
-              </div>
-            </FooterSection>
-          </FooterContainer>
-        </FooterRow>
-      )}
-    />
+            <a href="https://reddit.com/r/tanssipelit">
+              <img src={redditLogo} />
+            </a>
+          </div>
+        </FooterSection>
+
+        <FooterSection>
+          <SectionTitle>
+            <FormattedMessage id="partners" />
+          </SectionTitle>
+          <div>
+            <a href="http://seul.fi/">
+              <img src={seulLogo} />
+            </a>
+          </div>
+        </FooterSection>
+      </FooterContainer>
+    </FooterRow>
   );
 }
 export default Footer;

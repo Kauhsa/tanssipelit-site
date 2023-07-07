@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { transparentize } from "polished";
 
-import { StaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 import { colors } from "../style";
 import FullRow from "./FullRow";
 
@@ -38,33 +38,30 @@ const Background = styled.div`
 `;
 
 function Container({ children, className }) {
-  return (
-    <StaticQuery
-      query={graphql`
-        query PurpleContainerQuery {
-          background: file(relativePath: { eq: "background.png" }) {
-            childImageSharp {
-              gatsbyImageData(
-                width: 1500
-                jpgOptions: { progressive: true, quality: 60 }
-                formats: [JPG]
-              )
-            }
-          }
+  const data = useStaticQuery(graphql`
+    query PurpleContainerQuery {
+      background: file(relativePath: { eq: "background.png" }) {
+        childImageSharp {
+          gatsbyImageData(
+            width: 1500
+            jpgOptions: { progressive: true, quality: 60 }
+            formats: [JPG]
+          )
         }
-      `}
-      render={(data) => (
-        <Background
-          backgroundImage={
-            data.background.childImageSharp.gatsbyImageData.images.fallback.src
-          }
-        >
-          <FullRow>
-            <Overlay className={className}>{children}</Overlay>
-          </FullRow>
-        </Background>
-      )}
-    />
+      }
+    }
+  `);
+
+  return (
+    <Background
+      backgroundImage={
+        data.background.childImageSharp.gatsbyImageData.images.fallback.src
+      }
+    >
+      <FullRow>
+        <Overlay className={className}>{children}</Overlay>
+      </FullRow>
+    </Background>
   );
 }
 

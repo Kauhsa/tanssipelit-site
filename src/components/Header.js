@@ -1,5 +1,5 @@
-import { graphql, StaticQuery, Link } from "gatsby";
-import React from "react";
+import { graphql, useStaticQuery, Link } from "gatsby";
+import React, { useState } from "react";
 import Headroom from "react-headroom";
 import { FaBars } from "react-icons/fa";
 import styled, { css } from "styled-components";
@@ -154,113 +154,90 @@ const defaultLocaleUrls = {
   en: "/en",
 };
 
-// this CAN'T be PureComponent, or activeClassName in links won't work
-class Header extends React.Component {
-  state = {
-    mobileMenuOpen: false,
-  };
-
-  handleToggleMenu = (e) => {
-    e.preventDefault();
-
-    this.setState({
-      mobileMenuOpen: !this.state.mobileMenuOpen,
-    });
-  };
-
-  handleHideMenu = () => {
-    this.setState({
-      mobileMenuOpen: false,
-    });
-  };
-
-  getFrontPageUrl = () => (this.props.intl.locale === "fi" ? "/" : "/en");
-
-  render() {
-    return (
-      <StaticQuery
-        query={graphql`
-          query LayoutQuery {
-            allContentfulSettings {
-              edges {
-                node {
-                  node_locale
-                  navigation {
-                    id
-                    title
-                    slug
-                    node_locale
-                  }
-                }
-              }
+const Header = (props) => {
+  const data = useStaticQuery(graphql`
+    query LayoutQuery {
+      allContentfulSettings {
+        edges {
+          node {
+            node_locale
+            navigation {
+              id
+              title
+              slug
+              node_locale
             }
           }
-        `}
-        render={(data) => {
-          const { locale } = this.props.intl;
+        }
+      }
+    }
+  `);
 
-          const { navigation } = nodesWithLocale(
-            locale,
-            data.allContentfulSettings.edges
-          )[0].node;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-          const otherLocale = locale === "fi" ? "en" : "fi";
-          const flagImage = otherLocale === "fi" ? fiFlag : enFlag;
-          const flagUrl =
-            (this.props.localeUrls && this.props.localeUrls[otherLocale]) ||
-            defaultLocaleUrls[otherLocale];
+  const frontPageUrl = props.intl.locale === "fi" ? "/" : "/en";
 
-          return (
-            <HeaderContainer absolute={this.props.absolute}>
-              <FullRow>
-                <header>
-                  <Link id="logo" to={this.getFrontPageUrl()} />
-                  <MenuIcon onClick={this.handleToggleMenu}>
-                    <FaBars />
-                  </MenuIcon>
-                  <nav
-                    className={
-                      this.state.mobileMenuOpen ? undefined : "hidden-mobile"
-                    }
+  const { locale } = props.intl;
+
+  const { navigation } = nodesWithLocale(
+    locale,
+    data.allContentfulSettings.edges
+  )[0].node;
+
+  const otherLocale = locale === "fi" ? "en" : "fi";
+  const flagImage = otherLocale === "fi" ? fiFlag : enFlag;
+  const flagUrl =
+    (props.localeUrls && props.localeUrls[otherLocale]) ||
+    defaultLocaleUrls[otherLocale];
+
+  return (
+    <HeaderContainer absolute={props.absolute}>
+      <FullRow>
+        <header>
+          <Link id="logo" to={frontPageUrl} />
+          <MenuIcon
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen((open) => !open);
+            }}
+          >
+            <FaBars />
+          </MenuIcon>
+          <nav className={mobileMenuOpen ? undefined : "hidden-mobile"}>
+            <ul>
+              <li>
+                <Link
+                  activeClassName="active"
+                  to={frontPageUrl}
+                  exact
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <FormattedMessage id="frontPage" />
+                </Link>
+              </li>
+
+              {navigation.map((link) => (
+                <li key={link.id}>
+                  <Link
+                    activeClassName="active"
+                    to={articleLink(link.slug, link.node_locale)}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    <ul>
-                      <li>
-                        <Link
-                          activeClassName="active"
-                          to={this.getFrontPageUrl()}
-                          exact
-                          onClick={this.handleHideMenu}
-                        >
-                          <FormattedMessage id="frontPage" />
-                        </Link>
-                      </li>
-
-                      {navigation.map((link) => (
-                        <li key={link.id}>
-                          <Link
-                            activeClassName="active"
-                            to={articleLink(link.slug, link.node_locale)}
-                            onClick={this.handleHideMenu}
-                          >
-                            {link.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                  <FlagContainer>
-                    <Link to={flagUrl}>
-                      <Flag src={flagImage} />
-                    </Link>
-                  </FlagContainer>
-                </header>
-              </FullRow>
-            </HeaderContainer>
-          );
-        }}
-      />
-    );
-  }
-}
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <FlagContainer>
+            <Link to={flagUrl}>
+              <Flag src={flagImage} />
+            </Link>
+          </FlagContainer>
+        </header>
+      </FullRow>
+    </HeaderContainer>
+  );
+};
 
 export default injectIntl(Header);

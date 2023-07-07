@@ -1,6 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
-import { StaticQuery, graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import styled from "styled-components";
 
 import { injectIntl } from "react-intl";
@@ -26,59 +26,52 @@ const SmallHeaders = styled(TextContent)`
 `;
 
 function IndexPage({ intl: { locale } }) {
-  return (
-    <StaticQuery
-      query={graphql`
-        query IndexPageQuery {
-          allContentfulSettings {
-            edges {
-              node {
-                node_locale
-                frontPageContent {
-                  childMarkdownRemark {
-                    html
-                  }
-                }
-                metaDescription {
-                  childMarkdownRemark {
-                    rawMarkdownBody
-                  }
-                }
+  const data = useStaticQuery(graphql`
+    query IndexPageQuery {
+      allContentfulSettings {
+        edges {
+          node {
+            node_locale
+            frontPageContent {
+              childMarkdownRemark {
+                html
+              }
+            }
+            metaDescription {
+              childMarkdownRemark {
+                rawMarkdownBody
               }
             }
           }
         }
-      `}
-      render={(data) => {
-        const { node } = data.allContentfulSettings.edges.find(
-          (edge) => edge.node.node_locale === locale
-        );
+      }
+    }
+  `);
 
-        return (
-          <Layout headerAbsolute headerTransparentUnfixed>
-            <Helmet>
-              <meta
-                name="description"
-                content={
-                  node.metaDescription.childMarkdownRemark.rawMarkdownBody
-                }
-              />
-              <meta name="og:image" content={logoPurpleBg} />
-            </Helmet>
-            <IndexHeader />
-            <FullRow>
-              <Content>
-                <SmallHeaders
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontPageContent.childMarkdownRemark.html,
-                  }}
-                />
-              </Content>
-            </FullRow>
-          </Layout>
-        );
-      }}
-    />
+  const { node } = data.allContentfulSettings.edges.find(
+    (edge) => edge.node.node_locale === locale
+  );
+
+  return (
+    <Layout headerAbsolute headerTransparentUnfixed>
+      <Helmet>
+        <meta
+          name="description"
+          content={node.metaDescription.childMarkdownRemark.rawMarkdownBody}
+        />
+        <meta name="og:image" content={logoPurpleBg} />
+      </Helmet>
+      <IndexHeader />
+      <FullRow>
+        <Content>
+          <SmallHeaders
+            dangerouslySetInnerHTML={{
+              __html: node.frontPageContent.childMarkdownRemark.html,
+            }}
+          />
+        </Content>
+      </FullRow>
+    </Layout>
   );
 }
 
