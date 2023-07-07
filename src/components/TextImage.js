@@ -78,6 +78,7 @@ function TextImage({ gatsbyImageData, children }) {
   return (
     <Content>
       <GatsbyImage
+        alt="" // sorry!
         image={gatsbyImageData}
         className="stretch"
         outerWrapperClassName="stretch"
