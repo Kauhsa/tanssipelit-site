@@ -1,24 +1,21 @@
 import styled from "styled-components";
 import media from "styled-media-query";
-import { graphql, StaticQuery, Link } from "gatsby";
+import { graphql, useStaticQuery, Link } from "gatsby";
 import React from "react";
-import { times, take, sortBy } from "lodash-es";
-import { isAfter, startOfDay, getTime, parseISO } from "date-fns";
+import { take } from "lodash-es";
 
 import { injectIntl, FormattedMessage } from "react-intl";
-import { newsLink, calendarEntryLink } from "../links";
+import { newsLink } from "../links";
 
 import { SectionTitle } from "./TextContent";
 import TextImage from "./TextImage";
 import DateTime from "./DateTime";
-import DateRange from "./DateRange";
 
 import { headerHeight } from "./Header";
 import PurpleContainer from "./PurpleContainer";
 import { nodesWithLocale } from "./Intl";
 
-const MAX_EVENTS = 2;
-const MAX_NEWS = 2;
+const MAX_NEWS = 4;
 
 const NewsContainer = styled.div`
   a {
@@ -113,154 +110,79 @@ const SideContentItem = styled(({ to, className, children }) => (
   }
 `;
 
-class IndexHeader extends React.Component {
-  state = {
-    date: null,
-  };
-
-  componentDidMount() {
-    this.setState({
-      date: Date.now(),
-    });
-  }
-
-  getEvents = (events) => {
-    // If no date, we haven't rendered on client and don't know current date yet.
-    // So – render empty entries!
-    if (!this.state.date) {
-      return times(Math.min(MAX_EVENTS, events.length), (i) => (
-        <SideContentItem key={i}>
-          <SideContentTime>&nbsp;</SideContentTime>
-          &nbsp;
-        </SideContentItem>
-      ));
-    }
-
-    const futureEvents = events
-      .map(({ node }) => node)
-      .filter((event) => {
-        const eventStart = event.start ? parseISO(event.start) : null;
-        const eventEnd = event.end ? parseISO(event.end) : null;
-        isAfter(eventStart || eventEnd, startOfDay(this.state.date));
-      });
-
-    const sortedFutureEvents = sortBy(futureEvents, (event) => {
-      getTime(parseISO(event.start));
-    });
-
-    return take(sortedFutureEvents, MAX_EVENTS).map((event, i) => (
-      <SideContentItem
-        key={i}
-        to={calendarEntryLink(event.id, event.node_locale)}
-      >
-        <h3>{event.eventName}</h3>
-        <SideContentTime>
-          <DateRange
-            start={event.start}
-            end={event.end}
-            options={{
-              day: "numeric",
-              month: "numeric",
-              weekday: "short",
-            }}
-          />
-        </SideContentTime>
-      </SideContentItem>
-    ));
-  };
-
-  render() {
-    return (
-      <StaticQuery
-        query={graphql`
-          query LatestNewsQuery {
-            allContentfulNews(limit: 10, sort: { createdAt: DESC }) {
-              edges {
-                node {
-                  node_locale
-                  id
-                  title
-                  slug
-                  createdAt
-                  summary {
-                    childMarkdownRemark {
-                      rawMarkdownBody
-                    }
-                  }
-                  mainImage {
-                    gatsbyImageData(
-                      layout: CONSTRAINED
-                      quality: 80
-                      width: 800
-                      aspectRatio: 1.35
-                      resizingBehavior: FILL
-                      cropFocus: FACES
-                    )
-                  }
-                }
+const IndexHeader = (props) => {
+  const data = useStaticQuery(graphql`
+    query LatestNewsQuery {
+      allContentfulNews(limit: 10, sort: { createdAt: DESC }) {
+        edges {
+          node {
+            node_locale
+            id
+            title
+            slug
+            createdAt
+            summary {
+              childMarkdownRemark {
+                rawMarkdownBody
               }
             }
-            allContentfulCalendarEntry {
-              edges {
-                node {
-                  node_locale
-                  id
-                  eventName
-                  start
-                  end
-                }
-              }
+            mainImage {
+              gatsbyImageData(
+                layout: CONSTRAINED
+                quality: 80
+                width: 800
+                aspectRatio: 1.35
+                resizingBehavior: FILL
+                cropFocus: FACES
+              )
             }
           }
-        `}
-        render={(data) => {
-          const {
-            intl: { locale },
-          } = this.props;
+        }
+      }
+      allContentfulCalendarEntry {
+        edges {
+          node {
+            node_locale
+            id
+            eventName
+            start
+            end
+          }
+        }
+      }
+    }
+  `);
 
-          const [mostRecentNews, ...otherNews] = nodesWithLocale(
-            locale,
-            data.allContentfulNews.edges
-          );
+  const {
+    intl: { locale },
+  } = props;
 
-          const allEvents = nodesWithLocale(
-            locale,
-            data.allContentfulCalendarEntry.edges
-          );
+  const [mostRecentNews, ...otherNews] = nodesWithLocale(
+    locale,
+    data.allContentfulNews.edges
+  );
 
-          return (
-            <Container>
-              <HighlightNewsItem node={mostRecentNews.node} />
+  return (
+    <Container>
+      <HighlightNewsItem node={mostRecentNews.node} />
 
-              <SideContent>
-                <SectionTitle>
-                  <FormattedMessage id="upcomingEvents" />
-                </SectionTitle>
-                <ul>{this.getEvents(allEvents)}</ul>
-
-                <SectionTitle>
-                  <FormattedMessage id="otherNews" />
-                </SectionTitle>
-                <ul>
-                  {take(otherNews, MAX_NEWS).map(({ node }, i) => (
-                    <SideContentItem
-                      to={newsLink(node.slug, node.node_locale)}
-                      key={i}
-                    >
-                      <h3>{node.title}</h3>
-                      <SideContentTime>
-                        <DateTime dateTime={node.createdAt} />
-                      </SideContentTime>
-                    </SideContentItem>
-                  ))}
-                </ul>
-              </SideContent>
-            </Container>
-          );
-        }}
-      />
-    );
-  }
-}
+      <SideContent>
+        <SectionTitle>
+          <FormattedMessage id="otherNews" />
+        </SectionTitle>
+        <ul>
+          {take(otherNews, MAX_NEWS).map(({ node }, i) => (
+            <SideContentItem to={newsLink(node.slug, node.node_locale)} key={i}>
+              <h3>{node.title}</h3>
+              <SideContentTime>
+                <DateTime dateTime={node.createdAt} />
+              </SideContentTime>
+            </SideContentItem>
+          ))}
+        </ul>
+      </SideContent>
+    </Container>
+  );
+};
 
 export default injectIntl(IndexHeader);

@@ -1,6 +1,5 @@
 export const fi = {
   frontPage: "Etusivu",
-  upcomingEvents: "Tulevat tapahtumat",
   otherNews: "Muut uutiset",
   finnishDanceGamersAssociation: "Suomen tanssipelaajat ry",
   community: "Yhteisö",
@@ -13,7 +12,6 @@ export const fi = {
 
 export const en = {
   frontPage: "Main",
-  upcomingEvents: "Upcoming events",
   otherNews: "Other news",
   finnishDanceGamersAssociation: "Finnish Dance Gamers' Association",
   community: "Community",

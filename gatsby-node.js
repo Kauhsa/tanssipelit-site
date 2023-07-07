@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 const path = require("path");
-const { newsLink, articleLink, calendarEntryLink } = require("./src/links");
+const { newsLink, articleLink } = require("./src/links");
 
 exports.createPages = async ({
   actions: { createPage, createRedirect },
@@ -28,15 +28,6 @@ exports.createPages = async ({
           }
         }
       }
-
-      allContentfulCalendarEntry(limit: 1000) {
-        edges {
-          node {
-            id
-            node_locale
-          }
-        }
-      }
     }
   `);
 
@@ -58,16 +49,6 @@ exports.createPages = async ({
     createPage({
       path: articleLink(node.slug, node.node_locale),
       component: path.resolve(`src/templates/article.js`),
-      context: {
-        id: node.id,
-      },
-    });
-  });
-
-  data.allContentfulCalendarEntry.edges.forEach(({ node }) => {
-    createPage({
-      path: calendarEntryLink(node.id, node.node_locale),
-      component: path.resolve(`src/templates/calendarEntry.js`),
       context: {
         id: node.id,
       },
