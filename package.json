@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "tanssipelit-site",
+  "description": "Tanssipelit.fi",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "private": true,
   "dependencies": {
     "babel-plugin-styled-components": "^2.1.4",
     "common-tags": "^1.8.2",
