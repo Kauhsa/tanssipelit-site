@@ -3,7 +3,7 @@ import media from "styled-media-query";
 import { graphql, StaticQuery, Link } from "gatsby";
 import React from "react";
 import { times, take, sortBy } from "lodash-es";
-import { isAfter, startOfDay, getTime } from "date-fns";
+import { isAfter, startOfDay, getTime, parseISO } from "date-fns";
 
 import { injectIntl, FormattedMessage } from "react-intl";
 import { newsLink, calendarEntryLink } from "../links";
@@ -138,13 +138,15 @@ class IndexHeader extends React.Component {
 
     const futureEvents = events
       .map(({ node }) => node)
-      .filter((event) =>
-        isAfter(event.end || event.start, startOfDay(this.state.date))
-      );
+      .filter((event) => {
+        const eventStart = event.start ? parseISO(event.start) : null;
+        const eventEnd = event.end ? parseISO(event.end) : null;
+        isAfter(eventStart || eventEnd, startOfDay(this.state.date));
+      });
 
-    const sortedFutureEvents = sortBy(futureEvents, (event) =>
-      getTime(event.start)
-    );
+    const sortedFutureEvents = sortBy(futureEvents, (event) => {
+      getTime(parseISO(event.start));
+    });
 
     return take(sortedFutureEvents, MAX_EVENTS).map((event, i) => (
       <SideContentItem
