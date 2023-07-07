@@ -1,9 +1,11 @@
+/* eslint-disable no-undef */
+
 const path = require("path");
 const { newsLink, articleLink, calendarEntryLink } = require("./src/links");
 
 exports.createPages = async ({
   actions: { createPage, createRedirect },
-  graphql
+  graphql,
 }) => {
   const { errors, data } = await graphql(`
     {
@@ -47,8 +49,8 @@ exports.createPages = async ({
       path: newsLink(node.slug, node.node_locale),
       component: path.resolve(`src/templates/news.js`),
       context: {
-        id: node.id
-      }
+        id: node.id,
+      },
     });
   });
 
@@ -57,8 +59,8 @@ exports.createPages = async ({
       path: articleLink(node.slug, node.node_locale),
       component: path.resolve(`src/templates/article.js`),
       context: {
-        id: node.id
-      }
+        id: node.id,
+      },
     });
   });
 
@@ -67,8 +69,8 @@ exports.createPages = async ({
       path: calendarEntryLink(node.id, node.node_locale),
       component: path.resolve(`src/templates/calendarEntry.js`),
       context: {
-        id: node.id
-      }
+        id: node.id,
+      },
     });
   });
 
@@ -76,6 +78,6 @@ exports.createPages = async ({
   createRedirect({
     fromPath: "/palsta/*",
     toPath: "http://wanha.tanssipelit.fi/palsta/:splat",
-    isPermanent: true
+    isPermanent: true,
   });
 };

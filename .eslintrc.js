@@ -1,13 +1,15 @@
+/* eslint-disable no-undef */
+
 module.exports = {
   parserOptions: {
-    "sourceType": "module",
+    sourceType: "module",
     ecmaVersion: 2022,
   },
   plugins: ["prettier"],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
   rules: {
     "prettier/prettier": "error",
@@ -15,7 +17,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: 'detect'
-    }
-  }
+      version: "detect",
+    },
+  },
 };

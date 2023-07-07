@@ -44,20 +44,21 @@ function Container({ children, className }) {
         query PurpleContainerQuery {
           background: file(relativePath: { eq: "background.png" }) {
             childImageSharp {
-              fixed(
+              gatsbyImageData(
                 width: 1500
-                quality: 60
-                toFormat: JPG
-                jpegProgressive: true
-              ) {
-                src
-              }
+                jpgOptions: { progressive: true, quality: 60 }
+                formats: [JPG]
+              )
             }
           }
         }
       `}
       render={(data) => (
-        <Background backgroundImage={data.background.childImageSharp.fixed.src}>
+        <Background
+          backgroundImage={
+            data.background.childImageSharp.gatsbyImageData.images.fallback.src
+          }
+        >
           <FullRow>
             <Overlay className={className}>{children}</Overlay>
           </FullRow>

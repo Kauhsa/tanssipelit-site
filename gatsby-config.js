@@ -1,27 +1,30 @@
+/* eslint-disable no-undef */
+
 module.exports = {
   siteMetadata: {
-    title: 'Tanssipelit.fi',
+    title: "Tanssipelit.fi",
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
-    'gatsby-plugin-catch-links',
-    'gatsby-plugin-image',
+    "gatsby-plugin-react-helmet",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-sharp",
+    "gatsby-plugin-catch-links",
+    "gatsby-plugin-image",
     {
-      resolve: 'gatsby-source-contentful',
+      resolve: "gatsby-source-contentful",
       options: {
-        spaceId: 'jt8agxvntamh',
-        accessToken: '33b72bc053f88d3779c8d2d52608ff4f369bf1c7ae60a8127e653e736379214a',
+        spaceId: "jt8agxvntamh",
+        accessToken:
+          "33b72bc053f88d3779c8d2d52608ff4f369bf1c7ae60a8127e653e736379214a",
       },
     },
 
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
           {
-            resolve: 'gatsby-remark-images-contentful',
+            resolve: "gatsby-remark-images-contentful",
             options: {
               // It's important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
@@ -34,24 +37,24 @@ module.exports = {
     },
 
     {
-      resolve: 'gatsby-plugin-styled-components',
+      resolve: "gatsby-plugin-styled-components",
       options: {
         // Add any options here
       },
     },
 
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'images',
+        name: "images",
         path: `${__dirname}/src/images/`,
       },
     },
 
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: "gatsby-plugin-google-analytics",
       options: {
-        trackingId: 'UA-10310459-1',
+        trackingId: "UA-10310459-1",
         head: false,
         anonymize: true,
         respectDNT: true,
@@ -60,7 +63,7 @@ module.exports = {
     },
 
     {
-      resolve: 'gatsby-plugin-netlify',
+      resolve: "gatsby-plugin-netlify",
       options: {
         mergeCachingHeaders: false, // caching header seem to mean trouble in netlify
       },
