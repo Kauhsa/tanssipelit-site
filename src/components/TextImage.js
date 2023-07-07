@@ -81,7 +81,6 @@ function TextImage({ gatsbyImageData, children }) {
         alt="" // sorry!
         image={gatsbyImageData}
         className="stretch"
-        outerWrapperClassName="stretch"
       />
       <ItemContent>
         <Text>{children}</Text>

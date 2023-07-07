@@ -23,7 +23,7 @@ const headerBackground = transparentize(0.05, colors.purple);
 
 const HeaderContainer = styled(Headroom)`
   ${(props) =>
-    props.absolute &&
+    props.$absolute &&
     css`
       position: absolute;
     `};
@@ -191,7 +191,7 @@ const Header = (props) => {
     defaultLocaleUrls[otherLocale];
 
   return (
-    <HeaderContainer absolute={props.absolute}>
+    <HeaderContainer $absolute={props.absolute}>
       <FullRow>
         <header>
           <Link id="logo" to={frontPageUrl} />
@@ -209,7 +209,6 @@ const Header = (props) => {
                 <Link
                   activeClassName="active"
                   to={frontPageUrl}
-                  exact
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <FormattedMessage id="frontPage" />

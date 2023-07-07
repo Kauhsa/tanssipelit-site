@@ -32,7 +32,7 @@ const Overlay = styled.div`
 `;
 
 const Background = styled.div`
-  background-image: url("${(props) => props.backgroundImage}");
+  background-image: url("${(props) => props.$backgroundImage}");
   background-position: center top;
   background-size: cover;
 `;
@@ -54,7 +54,7 @@ function Container({ children, className }) {
 
   return (
     <Background
-      backgroundImage={
+      $backgroundImage={
         data.background.childImageSharp.gatsbyImageData.images.fallback.src
       }
     >

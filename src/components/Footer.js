@@ -39,7 +39,7 @@ const FooterRow = styled(FullRow)`
     left: 0;
     bottom: 0;
     right: 0;
-    background: url(${(props) => props.background});
+    background: url(${(props) => props.$background});
     background-size: cover;
     background-position: center bottom;
     opacity: 0.02;
@@ -104,7 +104,7 @@ function Footer() {
 
   return (
     <FooterRow
-      background={
+      $background={
         data.background.childImageSharp.gatsbyImageData.images.fallback.src
       }
     >
