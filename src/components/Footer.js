@@ -14,7 +14,7 @@ import FullRow from "./FullRow";
 import TextContent, { SectionTitle, a } from "./TextContent";
 import EmailLink from "./EmailLink";
 
-const presidentName = "Esa Laitinen";
+const presidentName = "Renne Brandt";
 const secretaryName = "Meo Ekroos";
 
 const FooterRow = styled(FullRow)`
